@@ -7,7 +7,7 @@
     
     <style>
         :root {
-            /* PALETA AZUL ORIGINAL (Coherencia Visual) */
+            /* PALETA AZUL ESTÁNDAR (Unificada) */
             --primary-blue: #007bff;
             --dark-blue: #0056b3;
             --green: #28a745;
@@ -286,7 +286,7 @@
         body.dark-mode .interactive-story { color: #333; }
         body.dark-mode .story-explanation { color: #80bfff; }
 
-        /* Drag & Drop - 2 COLUMNAS (Regla Binaria) */
+        /* Drag & Drop */
         .sorter-container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
         .dropzone { min-height: 200px; background: var(--light-gray-bg); border: 3px dashed var(--border-color); border-radius: 8px; padding: 10px; }
         .dropzone.drag-over { background-color: #e9ecef; border-color: var(--primary-blue); }
@@ -324,9 +324,9 @@
         </header>
         
         <nav class="main-tab-nav">
-            <button class="main-tab-link active" onclick="changeMainTab(event, 'tab-metaphor')" data-lang-key="tab_metaphor">The Rule</button>
+            <button class="main-tab-link active" onclick="changeMainTab(event, 'tab-metaphor')" data-lang-key="tab_metaphor">👤=👤 vs. 👤≠👥 The Rule</button>
             <button class="main-tab-link" onclick="changeMainTab(event, 'tab-formacion')" data-lang-key="tab_formation">✍️ Verbs & Structure</button>
-            <button class="main-tab-link" onclick="changeMainTab(event, 'tab-practica')" data-lang-key="tab_practice">🧠 Practice</button>
+            <button class="main-tab-link" onclick="changeMainTab(event, 'tab-practica')" data-lang-key="tab_practice">🧠 Interactive Practice</button>
             <button class="main-tab-link" onclick="changeMainTab(event, 'tab-flashcards')" data-lang-key="tab_flashcards">📇 Flashcards</button>
         </nav>
 
@@ -357,7 +357,7 @@
                 <h3 style="margin-top: 30px;">Video Tutorial</h3>
                 <div class="video-placeholder" id="video-placeholder-id">
                     <p data-lang-key="viz_video_desc">
-                        <iframe src="https://drive.google.com/file/d/1Zp_seWL55p9QxQRjH15PT_KJHSoa4LWA/preview" width="640" height="480" allow="autoplay"></iframe>
+                        <iframe src="https://drive.google.com/file/d/1Zp_seWL55p9QxQRjH15PT_KJHSoa4LWA/preview" width="640" height="400" allow="autoplay"></iframe>
                     </p>
                 </div>
 
@@ -390,13 +390,13 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Clarifier (A mí...)</th>
-                                <th>Pronoun (me...)</th>
+                                <th>Clarifier (Optional)</th>
+                                <th>Pronoun (Required)</th>
                                 <th>Opinion Verb</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td>(A mí)</td><td><strong>me</strong></td><td rowspan="5">parece bien / mal<br>importa<br>interesa<br>gusta / encanta</td></tr>
+                            <tr><td>(A mí)</td><td><strong>me</strong></td><td rowspan="5">parece bien / mal<br>importa<br>interesa<br>gusta / encanta<br>molesta<br>sorprende</td></tr>
                             <tr><td>(A ti)</td><td><strong>te</strong></td></tr>
                             <tr><td>(A él/ella)</td><td><strong>le</strong></td></tr>
                             <tr><td>(A nosotros)</td><td><strong>nos</strong></td></tr>
@@ -433,6 +433,7 @@
                         <h3>Part 2: Interactive Story</h3>
                         <button id="generate-story" class="refresh-btn button-secondary">New Story</button>
                     </div>
+                    <p>Complete the story by choosing the correct verb form.</p>
                     <div id="story-container" class="interactive-story"></div>
                     <button id="check-story-btn" class="button-primary" style="margin-top: 20px;">Check Story</button>
                 </div>
@@ -501,14 +502,14 @@ const flashcardData = [
 ];
 
 const quizBank = [
-    { id: "q1", question: "Me parece bien (ir) al cine.", options: ["ir", "vaya"], correct: 0, explanation: "Same subject (It seems good to me, I go/general). -> Infinitive. 👤=👤" },
-    { id: "q2", question: "Me parece bien que tú (ir) al cine.", options: ["ir", "vayas"], correct: 1, explanation: "Different subjects (Me, Tú). -> Subjunctive. 👤≠👥" },
-    { id: "q3", question: "Nos parece mal (llegar) tarde.", options: ["llegar", "lleguemos"], correct: 0, explanation: "Same subject. -> Infinitive. 👤=👤" },
-    { id: "q4", question: "Nos parece mal que ellos (llegar) tarde.", options: ["llegar", "lleguen"], correct: 1, explanation: "Different subjects (Us, Them). -> Subjunctive. 👤≠👥" },
-    { id: "q5", question: "Le importa (estudiar).", options: ["estudiar", "estudie"], correct: 0, explanation: "Same subject. -> Infinitive. 👤=👤" },
-    { id: "q6", question: "Le importa que nosotros (estudiar).", options: ["estudiar", "estudiemos"], correct: 1, explanation: "Different subjects. -> Subjunctive. 👤≠👥" },
-    { id: "q7", question: "Te sorprende (ver) esto.", options: ["ver", "veas"], correct: 0, explanation: "Same subject. -> Infinitive. 👤=👤" },
-    { id: "q8", question: "Te sorprende que yo (ver) esto.", options: ["ver", "vea"], correct: 1, explanation: "Different subjects. -> Subjunctive. 👤≠👥" },
+    { id: "q1", question: "Me parece bien (ir) al cine.", options: ["ir", "vaya"], correct: 0, explanation: "Same subject -> Infinitive. 👤=👤" },
+    { id: "q2", question: "Me parece bien que tú (ir) al cine.", options: ["ir", "vayas"], correct: 1, explanation: "Different subjects -> Subjunctive. 👤≠👥" },
+    { id: "q3", question: "Nos parece mal (llegar) tarde.", options: ["llegar", "lleguemos"], correct: 0, explanation: "Same subject -> Infinitive. 👤=👤" },
+    { id: "q4", question: "Nos parece mal que ellos (llegar) tarde.", options: ["llegar", "lleguen"], correct: 1, explanation: "Different subjects -> Subjunctive. 👤≠👥" },
+    { id: "q5", question: "Le importa (estudiar).", options: ["estudiar", "estudie"], correct: 0, explanation: "Same subject -> Infinitive. 👤=👤" },
+    { id: "q6", question: "Le importa que nosotros (estudiar).", options: ["estudiar", "estudiemos"], correct: 1, explanation: "Different subjects -> Subjunctive. 👤≠👥" },
+    { id: "q7", question: "Te sorprende (ver) esto.", options: ["ver", "veas"], correct: 0, explanation: "Same subject -> Infinitive. 👤=👤" },
+    { id: "q8", question: "Te sorprende que yo (ver) esto.", options: ["ver", "vea"], correct: 1, explanation: "Different subjects -> Subjunctive. 👤≠👥" },
     { id: "q9", question: "Nos interesa (aprender).", options: ["aprender", "aprendamos"], correct: 0, explanation: "Same subject -> Infinitive." },
     { id: "q10", question: "Nos interesa que tú (aprender).", options: ["aprender", "aprendas"], correct: 1, explanation: "Different subjects -> Subjunctive." },
     { id: "q11", question: "Les molesta (pagar).", options: ["pagar", "paguen"], correct: 0, explanation: "Same subject -> Infinitive." },
@@ -537,20 +538,22 @@ const storyBank = [
     {
         id: "story1",
         html: `
+            <span><strong>La Fiesta:</strong><br><br></span>
             <span>A mí me hace ilusión</span> 
-            <select id="story1-1" data-type="infinitive"><option value="c">aprender</option><option value="w">aprenda</option></select>
-            <span>quechua. Pero a mis padres les parece mal que yo</span> 
-            <select id="story1-2" data-type="subjunctive"><option value="c">estudie</option><option value="w">estudiar</option></select>
-            <span>una lengua indígena. A ellos les gustaría</span> 
-            <select id="story1-3" data-type="infinitive"><option value="w">vivan</option><option value="c">vivir</option></select>
-            <span>en la ciudad, pero a mí me molesta que ellos no</span> 
-            <select id="story1-4" data-type="subjunctive"><option value="w">valorar</option><option value="c">valoren</option></select>
-            <span>nuestras raíces.</span>
+            <select id="story1-1" data-type="infinitive"><option value="c">ir</option><option value="w">vaya</option></select>
+            <span>a la fiesta. Pero a mis padres les parece mal que yo</span> 
+            <select id="story1-2" data-type="subjunctive"><option value="c">vuelva</option><option value="w">volver</option></select>
+            <span>tarde. A ellos les importa</span> 
+            <select id="story1-3" data-type="infinitive"><option value="w">duerman</option><option value="c">dormir</option></select>
+            <span>tranquilos, y les molesta que yo</span> 
+            <select id="story1-4" data-type="subjunctive"><option value="w">hacer</option><option value="c">haga</option></select>
+            <span>ruido.</span>
         `
     },
     {
         id: "story2",
         html: `
+            <span><strong>El Proyecto Comunitario:</strong><br><br></span>
             <span>Nos parece bien</span> 
             <select id="story2-1" data-type="infinitive"><option value="w">ayudemos</option><option value="c">ayudar</option></select>
             <span>a la comunidad. Nos sorprende que el gobierno no</span> 
@@ -565,72 +568,300 @@ const storyBank = [
     {
         id: "story3",
         html: `
-            <span>A mí me parece interesante</span> 
-            <select id="story3-1" data-type="infinitive"><option value="c">leer</option><option value="w">lea</option></select>
-            <span>sobre historia. Me molesta que mis amigos no</span> 
-            <select id="story3-2" data-type="subjunctive"><option value="c">lean</option><option value="w">leer</option></select>
-            <span>nunca. Les parece aburrido</span> 
-            <select id="story3-3" data-type="infinitive"><option value="c">ir</option><option value="w">vayan</option></select>
-            <span>a la biblioteca, pero a mí me encanta que haya</span> 
-            <select id="story3-4" data-type="subjunctive"><option value="w">haber</option><option value="c">tantos</option></select>
-            <span>libros.</span>
+            <span><strong>Compañeros de Piso:</strong><br><br></span>
+            <span>Me molesta</span> 
+            <select id="story3-1" data-type="infinitive"><option value="c">limpiar</option><option value="w">limpie</option></select>
+            <span>la cocina siempre. Me parece injusto que tú nunca</span> 
+            <select id="story3-2" data-type="subjunctive"><option value="c">ayudes</option><option value="w">ayudar</option></select>
+            <span>. Te importa mucho</span> 
+            <select id="story3-3" data-type="infinitive"><option value="c">ver</option><option value="w">veas</option></select>
+            <span>la televisión, pero no te importa que la casa</span> 
+            <select id="story3-4" data-type="subjunctive"><option value="c">esté</option><option value="w">estar</option></select>
+            <span>sucia.</span>
         `
     },
     {
         id: "story4",
         html: `
-            <span>Te importa mucho</span> 
-            <select id="story4-1" data-type="infinitive"><option value="c">ganar</option><option value="w">ganes</option></select>
-            <span>el partido. A tu entrenador le parece bien que tú</span> 
-            <select id="story4-2" data-type="subjunctive"><option value="c">entrenes</option><option value="w">entrenar</option></select>
-            <span>duro. Pero a tus compañeros les molesta</span> 
-            <select id="story4-3" data-type="infinitive"><option value="c">correr</option><option value="w">corran</option></select>
-            <span>tanto. Les parece injusto que el entrenador les</span> 
-            <select id="story4-4" data-type="subjunctive"><option value="c">exija</option><option value="w">exigir</option></select>
-            <span>tanto esfuerzo.</span>
+            <span><strong>Viaje Escolar:</strong><br><br></span>
+            <span>Al profesor le interesa</span> 
+            <select id="story4-1" data-type="infinitive"><option value="c">visitar</option><option value="w">visite</option></select>
+            <span>el museo. A los estudiantes les parece aburrido que el guía</span> 
+            <select id="story4-2" data-type="subjunctive"><option value="c">hable</option><option value="w">hablar</option></select>
+            <span>tanto. Les gustaría</span> 
+            <select id="story4-3" data-type="infinitive"><option value="c">salir</option><option value="w">salgan</option></select>
+            <span>pronto, pero al profesor le parece mal que ellos no</span> 
+            <select id="story4-4" data-type="subjunctive"><option value="c">presten</option><option value="w">prestar</option></select>
+            <span>atención.</span>
         `
     },
     {
         id: "story5",
         html: `
+            <span><strong>Tecnología:</strong><br><br></span>
+            <span>Me parece fascinante</span> 
+            <select id="story5-1" data-type="infinitive"><option value="c">usar</option><option value="w">use</option></select>
+            <span>la IA. Pero me preocupa que la tecnología</span> 
+            <select id="story5-2" data-type="subjunctive"><option value="c">reemplace</option><option value="w">reemplazar</option></select>
+            <span>empleos. A mi hermano le da igual</span> 
+            <select id="story5-3" data-type="infinitive"><option value="c">perder</option><option value="w">pierda</option></select>
+            <span>su trabajo, pero a mí me importa que nosotros</span> 
+            <select id="story5-4" data-type="subjunctive"><option value="c">tengamos</option><option value="w">tener</option></select>
+            <span>futuro.</span>
+        `
+    },
+    {
+        id: "story6",
+        html: `
+            <span><strong>El Gimnasio:</strong><br><br></span>
+            <span>Me hace ilusión</span> 
+            <select id="story6-1" data-type="infinitive"><option value="c">empezar</option><option value="w">empiece</option></select>
+            <span>el gimnasio. Pero me molesta que haya</span> 
+            <select id="story6-2" data-type="subjunctive"><option value="w">haber</option><option value="c">tanta</option></select>
+            <span>gente. A mi entrenador le parece bien que yo</span> 
+            <select id="story6-3" data-type="subjunctive"><option value="c">levante</option><option value="w">levantar</option></select>
+            <span>pesas, pero me pide que no</span> 
+            <select id="story6-4" data-type="infinitive"><option value="w">corra</option><option value="c">correr</option></select>
+            <span>demasiado.</span>
+        `
+    },
+    {
+        id: "story7",
+        html: `
+            <span><strong>La Dieta:</strong><br><br></span>
+            <span>Al médico le parece mal</span> 
+            <select id="story7-1" data-type="infinitive"><option value="c">comer</option><option value="w">coma</option></select>
+            <span>mucha azúcar. Le importa que sus pacientes</span> 
+            <select id="story7-2" data-type="subjunctive"><option value="c">tengan</option><option value="w">tener</option></select>
+            <span>buena salud. A mí me cuesta</span> 
+            <select id="story7-3" data-type="infinitive"><option value="c">dejar</option><option value="w">deje</option></select>
+            <span>los dulces, pero sé que es mejor que yo</span> 
+            <select id="story7-4" data-type="subjunctive"><option value="c">coma</option><option value="w">comer</option></select>
+            <span>fruta.</span>
+        `
+    },
+    {
+        id: "story8",
+        html: `
+            <span><strong>El Concierto:</strong><br><br></span>
+            <span>Nos encanta</span> 
+            <select id="story8-1" data-type="infinitive"><option value="c">escuchar</option><option value="w">escuchemos</option></select>
+            <span>música en vivo. Nos molesta que las entradas</span> 
+            <select id="story8-2" data-type="subjunctive"><option value="c">sean</option><option value="w">ser</option></select>
+            <span>tan caras. A mi amigo le da igual</span> 
+            <select id="story8-3" data-type="infinitive"><option value="c">pagar</option><option value="w">pague</option></select>
+            <span>mucho, pero a mí me importa que nosotros</span> 
+            <select id="story8-4" data-type="subjunctive"><option value="c">ahorremos</option><option value="w">ahorrar</option></select>
+            <span>dinero.</span>
+        `
+    },
+    {
+        id: "story9",
+        html: `
+            <span><strong>La Boda:</strong><br><br></span>
+            <span>A mi hermana le hace ilusión</span> 
+            <select id="story9-1" data-type="infinitive"><option value="c">casarse</option><option value="w">se case</option></select>
+            <span>. A mis padres les parece bien que ella</span> 
+            <select id="story9-2" data-type="subjunctive"><option value="c">sea</option><option value="w">ser</option></select>
+            <span>feliz. A mí me sorprende</span> 
+            <select id="story9-3" data-type="infinitive"><option value="c">ver</option><option value="w">vea</option></select>
+            <span>tantos invitados, y me molesta que</span> 
+            <select id="story9-4" data-type="subjunctive"><option value="c">haya</option><option value="w">haber</option></select>
+            <span>tanto ruido.</span>
+        `
+    },
+    {
+        id: "story10",
+        html: `
+            <span><strong>El Trabajo:</strong><br><br></span>
+            <span>A mi jefe le interesa</span> 
+            <select id="story10-1" data-type="infinitive"><option value="c">aumentar</option><option value="w">aumente</option></select>
+            <span>las ventas. Le parece mal que nosotros</span> 
+            <select id="story10-2" data-type="subjunctive"><option value="c">lleguemos</option><option value="w">llegar</option></select>
+            <span>tarde. A mí no me importa</span> 
+            <select id="story10-3" data-type="infinitive"><option value="c">trabajar</option><option value="w">trabaje</option></select>
+            <span>duro, pero me molesta que él no</span> 
+            <select id="story10-4" data-type="subjunctive"><option value="c">agradezca</option><option value="w">agradecer</option></select>
+            <span>nuestro esfuerzo.</span>
+        `
+    },
+    {
+        id: "story11",
+        html: `
+            <span><strong>La Política:</strong><br><br></span>
+            <span>A muchos ciudadanos les parece importante</span> 
+            <select id="story11-1" data-type="infinitive"><option value="c">votar</option><option value="w">voten</option></select>
+            <span>. Les preocupa que los políticos no</span> 
+            <select id="story11-2" data-type="subjunctive"><option value="c">escuchen</option><option value="w">escuchar</option></select>
+            <span>al pueblo. A mí me interesa</span> 
+            <select id="story11-3" data-type="infinitive"><option value="c">leer</option><option value="w">lea</option></select>
+            <span>las noticias, y me sorprende que la gente</span> 
+            <select id="story11-4" data-type="subjunctive"><option value="c">ignore</option><option value="w">ignorar</option></select>
+            <span>los problemas.</span>
+        `
+    },
+    {
+        id: "story12",
+        html: `
+            <span><strong>El Medio Ambiente:</strong><br><br></span>
+            <span>Nos parece urgente</span> 
+            <select id="story12-1" data-type="infinitive"><option value="c">proteger</option><option value="w">protejamos</option></select>
+            <span>la naturaleza. Nos molesta que las empresas</span> 
+            <select id="story12-2" data-type="subjunctive"><option value="c">contaminen</option><option value="w">contaminar</option></select>
+            <span>los ríos. A mí me gusta</span> 
+            <select id="story12-3" data-type="infinitive"><option value="c">reciclar</option><option value="w">recicle</option></select>
+            <span>, y espero que todos</span> 
+            <select id="story12-4" data-type="subjunctive"><option value="c">hagan</option><option value="w">hacer</option></select>
+            <span>lo mismo.</span>
+        `
+    },
+    {
+        id: "story13",
+        html: `
+            <span><strong>Las Redes Sociales:</strong><br><br></span>
+            <span>A los jóvenes les encanta</span> 
+            <select id="story13-1" data-type="infinitive"><option value="c">compartir</option><option value="w">compartan</option></select>
+            <span>fotos. A los padres les preocupa que sus hijos</span> 
+            <select id="story13-2" data-type="subjunctive"><option value="c">pasen</option><option value="w">pasar</option></select>
+            <span>demasiado tiempo online. A mí me parece bien</span> 
+            <select id="story13-3" data-type="infinitive"><option value="c">usar</option><option value="w">use</option></select>
+            <span>Instagram, pero me molesta que la gente</span> 
+            <select id="story13-4" data-type="subjunctive"><option value="c">sea</option><option value="w">ser</option></select>
+            <span>falsa.</span>
+        `
+    },
+    {
+        id: "story14",
+        html: `
+            <span><strong>La Moda:</strong><br><br></span>
+            <span>A mi amiga le importa mucho</span> 
+            <select id="story14-1" data-type="infinitive"><option value="c">vestir</option><option value="w">vista</option></select>
+            <span>bien. Le molesta que yo</span> 
+            <select id="story14-2" data-type="subjunctive"><option value="c">use</option><option value="w">usar</option></select>
+            <span>ropa vieja. A mí me da igual</span> 
+            <select id="story14-3" data-type="infinitive"><option value="c">estar</option><option value="w">esté</option></select>
+            <span>a la moda. Prefiero que mi ropa</span> 
+            <select id="story14-4" data-type="subjunctive"><option value="c">sea</option><option value="w">ser</option></select>
+            <span>cómoda.</span>
+        `
+    },
+    {
+        id: "story15",
+        html: `
+            <span><strong>El Transporte Público:</strong><br><br></span>
+            <span>A la gente le molesta</span> 
+            <select id="story15-1" data-type="infinitive"><option value="c">esperar</option><option value="w">esperen</option></select>
+            <span>el autobús. Les parece mal que el servicio</span> 
+            <select id="story15-2" data-type="subjunctive"><option value="c">sea</option><option value="w">ser</option></select>
+            <span>lento. A mí me conviene</span> 
+            <select id="story15-3" data-type="infinitive"><option value="c">tomar</option><option value="w">tome</option></select>
+            <span>el metro, aunque desearía que</span> 
+            <select id="story15-4" data-type="subjunctive"><option value="c">hubiera</option><option value="w">haber</option></select>
+            <span>menos gente.</span>
+        `
+    },
+    {
+        id: "story16",
+        html: `
+            <span><strong>Aprender Idiomas:</strong><br><br></span>
+            <span>Me interesa</span> 
+            <select id="story16-1" data-type="infinitive"><option value="c">aprender</option><option value="w">aprenda</option></select>
+            <span>francés. A mi profesor le parece bien que yo</span> 
+            <select id="story16-2" data-type="subjunctive"><option value="c">practique</option><option value="w">practicar</option></select>
+            <span>todos los días. A mis amigos les sorprende</span> 
+            <select id="story16-3" data-type="infinitive"><option value="c">oír</option><option value="w">oigan</option></select>
+            <span>mi acento. Les gusta que yo les</span> 
+            <select id="story16-4" data-type="subjunctive"><option value="c">enseñe</option><option value="w">enseñar</option></select>
+            <span>palabras nuevas.</span>
+        `
+    },
+    {
+        id: "story17",
+        html: `
+            <span><strong>Las Vacaciones:</strong><br><br></span>
             <span>Nos hace ilusión</span> 
-            <select id="story5-1" data-type="infinitive"><option value="c">organizar</option><option value="w">organicemos</option></select>
-            <span>la fiesta. Nos parece genial que todos</span> 
-            <select id="story5-2" data-type="subjunctive"><option value="c">vengan</option><option value="w">venir</option></select>
-            <span>. Pero me preocupa</span> 
-            <select id="story5-3" data-type="infinitive"><option value="c">gastar</option><option value="w">gaste</option></select>
-            <span>mucho dinero. ¿Te importa que nosotros</span> 
-            <select id="story5-4" data-type="subjunctive"><option value="c">compremos</option><option value="w">comprar</option></select>
-            <span>solo lo necesario?</span>
+            <select id="story17-1" data-type="infinitive"><option value="c">ir</option><option value="w">vayamos</option></select>
+            <span>a la playa. A mi padre le molesta que</span> 
+            <select id="story17-2" data-type="subjunctive"><option value="c">llueva</option><option value="w">llover</option></select>
+            <span>. A mí no me importa</span> 
+            <select id="story17-3" data-type="infinitive"><option value="c">quedarme</option><option value="w">me quede</option></select>
+            <span>en el hotel, pero prefiero que</span> 
+            <select id="story17-4" data-type="subjunctive"><option value="c">haga</option><option value="w">hacer</option></select>
+            <span>sol.</span>
+        `
+    },
+    {
+        id: "story18",
+        html: `
+            <span><strong>El Cine:</strong><br><br></span>
+            <span>Me encanta</span> 
+            <select id="story18-1" data-type="infinitive"><option value="c">ver</option><option value="w">vea</option></select>
+            <span>películas de terror. A mi novia le da miedo que</span> 
+            <select id="story18-2" data-type="subjunctive"><option value="c">salgan</option><option value="w">salir</option></select>
+            <span>monstruos. A ella le gusta</span> 
+            <select id="story18-3" data-type="infinitive"><option value="c">comer</option><option value="w">coma</option></select>
+            <span>palomitas, y le molesta que yo</span> 
+            <select id="story18-4" data-type="subjunctive"><option value="c">hable</option><option value="w">hablar</option></select>
+            <span>durante la película.</span>
+        `
+    },
+    {
+        id: "story19",
+        html: `
+            <span><strong>El Dinero:</strong><br><br></span>
+            <span>A mis padres les preocupa</span> 
+            <select id="story19-1" data-type="infinitive"><option value="c">gastar</option><option value="w">gasten</option></select>
+            <span>demasiado. Les parece importante que nosotros</span> 
+            <select id="story19-2" data-type="subjunctive"><option value="c">ahorremos</option><option value="w">ahorrar</option></select>
+            <span>. A mí me gustaría</span> 
+            <select id="story19-3" data-type="infinitive"><option value="c">comprar</option><option value="w">compre</option></select>
+            <span>un coche, pero ellos prefieren que yo</span> 
+            <select id="story19-4" data-type="subjunctive"><option value="c">espere</option><option value="w">esperar</option></select>
+            <span>un poco más.</span>
+        `
+    },
+    {
+        id: "story20",
+        html: `
+            <span><strong>La Lectura:</strong><br><br></span>
+            <span>Me parece fundamental</span> 
+            <select id="story20-1" data-type="infinitive"><option value="c">leer</option><option value="w">lea</option></select>
+            <span>libros. Me preocupa que los niños no</span> 
+            <select id="story20-2" data-type="subjunctive"><option value="c">lean</option><option value="w">leer</option></select>
+            <span>suficiente. A los profesores les interesa</span> 
+            <select id="story20-3" data-type="infinitive"><option value="c">fomentar</option><option value="w">fomenten</option></select>
+            <span>la lectura, y esperan que los padres</span> 
+            <select id="story20-4" data-type="subjunctive"><option value="c">ayuden</option><option value="w">ayudar</option></select>
+            <span>en casa.</span>
         `
     }
 ];
 
 const dragDropBank = [
-    { id: 1, text: "Me parece bien <strong>comer</strong>.", type: "infinitive", exp: "Same Subject 👤=👤" },
-    { id: 2, text: "Me parece bien que <strong>comas</strong>.", type: "subjunctive", exp: "Diff Subject 👤≠👥" },
-    { id: 3, text: "Nos molesta <strong>esperar</strong>.", type: "infinitive", exp: "Same Subject 👤=👤" },
-    { id: 4, text: "Nos molesta que <strong>esperen</strong>.", type: "subjunctive", exp: "Diff Subject 👤≠👥" },
-    { id: 5, text: "Le hace ilusión <strong>ir</strong>.", type: "infinitive", exp: "Same Subject 👤=👤" },
-    { id: 6, text: "Le hace ilusión que <strong>vayas</strong>.", type: "subjunctive", exp: "Diff Subject 👤≠👥" },
-    { id: 7, text: "Te sorprende <strong>ganar</strong>.", type: "infinitive", exp: "Same Subject 👤=👤" },
-    { id: 8, text: "Te sorprende que <strong>ganen</strong>.", type: "subjunctive", exp: "Diff Subject 👤≠👥" },
-    { id: 9, text: "Me interesa <strong>leer</strong>.", type: "infinitive", exp: "Same Subject 👤=👤" },
-    { id: 10, text: "Me interesa que <strong>leas</strong>.", type: "subjunctive", exp: "Diff Subject 👤≠👥" },
-    { id: 11, text: "Les importa <strong>ganar</strong>.", type: "infinitive", exp: "Same Subject 👤=👤" },
-    { id: 12, text: "Les importa que <strong>ganemos</strong>.", type: "subjunctive", exp: "Diff Subject 👤≠👥" },
-    { id: 13, text: "Nos parece mal <strong>gritar</strong>.", type: "infinitive", exp: "Same Subject 👤=👤" },
-    { id: 14, text: "Nos parece mal que <strong>griten</strong>.", type: "subjunctive", exp: "Diff Subject 👤≠👥" },
-    { id: 15, text: "Me encanta <strong>bailar</strong>.", type: "infinitive", exp: "Same Subject 👤=👤" },
-    { id: 16, text: "Me encanta que <strong>bailes</strong>.", type: "subjunctive", exp: "Diff Subject 👤≠👥" },
-    { id: 17, text: "Te cae mal <strong>perder</strong>.", type: "infinitive", exp: "Same Subject 👤=👤" },
-    { id: 18, text: "Te cae mal que <strong>pierda</strong>.", type: "subjunctive", exp: "Diff Subject 👤≠👥" },
-    { id: 19, text: "Le molesta <strong>fumar</strong>.", type: "infinitive", exp: "Same Subject 👤=👤" },
-    { id: 20, text: "Le molesta que <strong>fumen</strong>.", type: "subjunctive", exp: "Diff Subject 👤≠👥" },
-    { id: 21, text: "Nos sorprende <strong>verte</strong>.", type: "infinitive", exp: "Same Subject 👤=👤" },
-    { id: 22, text: "Nos sorprende que <strong>vengas</strong>.", type: "subjunctive", exp: "Diff Subject 👤≠👥" },
-    { id: 23, text: "Les parece raro <strong>salir</strong>.", type: "infinitive", exp: "Same Subject 👤=👤" },
-    { id: 24, text: "Les parece raro que <strong>salgas</strong>.", type: "subjunctive", exp: "Diff Subject 👤≠👥" }
+    { id: 1, text: "Me parece bien <strong>comer</strong>.", type: "infinitive", exp: "Opinion, Same Subject 👤=👤" },
+    { id: 2, text: "Me parece bien que <strong>comas</strong>.", type: "subjunctive", exp: "Opinion, Diff Subject 👤≠👥" },
+    { id: 3, text: "Nos molesta <strong>esperar</strong>.", type: "infinitive", exp: "Feeling, Same Subject 👤=👤" },
+    { id: 4, text: "Nos molesta que <strong>esperen</strong>.", type: "subjunctive", exp: "Feeling, Diff Subject 👤≠👥" },
+    { id: 5, text: "Le hace ilusión <strong>ir</strong>.", type: "infinitive", exp: "Feeling, Same Subject 👤=👤" },
+    { id: 6, text: "Le hace ilusión que <strong>vayas</strong>.", type: "subjunctive", exp: "Feeling, Diff Subject 👤≠👥" },
+    { id: 7, text: "Te sorprende <strong>ganar</strong>.", type: "infinitive", exp: "Feeling, Same Subject 👤=👤" },
+    { id: 8, text: "Te sorprende que <strong>ganen</strong>.", type: "subjunctive", exp: "Feeling, Diff Subject 👤≠👥" },
+    { id: 9, text: "Me interesa <strong>leer</strong>.", type: "infinitive", exp: "Opinion, Same Subject 👤=👤" },
+    { id: 10, text: "Me interesa que <strong>leas</strong>.", type: "subjunctive", exp: "Opinion, Diff Subject 👤≠👥" },
+    { id: 11, text: "Les importa <strong>ganar</strong>.", type: "infinitive", exp: "Opinion, Same Subject 👤=👤" },
+    { id: 12, text: "Les importa que <strong>ganemos</strong>.", type: "subjunctive", exp: "Opinion, Diff Subject 👤≠👥" },
+    { id: 13, text: "Nos parece mal <strong>gritar</strong>.", type: "infinitive", exp: "Opinion, Same Subject 👤=👤" },
+    { id: 14, text: "Nos parece mal que <strong>griten</strong>.", type: "subjunctive", exp: "Opinion, Diff Subject 👤≠👥" },
+    { id: 15, text: "Me encanta <strong>bailar</strong>.", type: "infinitive", exp: "Feeling, Same Subject 👤=👤" },
+    { id: 16, text: "Me encanta que <strong>bailes</strong>.", type: "subjunctive", exp: "Feeling, Diff Subject 👤≠👥" },
+    { id: 17, text: "Te cae mal <strong>perder</strong>.", type: "infinitive", exp: "Feeling, Same Subject 👤=👤" },
+    { id: 18, text: "Te cae mal que <strong>pierda</strong>.", type: "subjunctive", exp: "Feeling, Diff Subject 👤≠👥" },
+    { id: 19, text: "Le molesta <strong>fumar</strong>.", type: "infinitive", exp: "Feeling, Same Subject 👤=👤" },
+    { id: 20, text: "Le molesta que <strong>fumen</strong>.", type: "subjunctive", exp: "Feeling, Diff Subject 👤≠👥" },
+    { id: 21, text: "Nos sorprende <strong>verte</strong>.", type: "infinitive", exp: "Feeling, Same Subject 👤=👤" },
+    { id: 22, text: "Nos sorprende que <strong>vengas</strong>.", type: "subjunctive", exp: "Feeling, Diff Subject 👤≠👥" },
+    { id: 23, text: "Les parece raro <strong>salir</strong>.", type: "infinitive", exp: "Opinion, Same Subject 👤=👤" },
+    { id: 24, text: "Les parece raro que <strong>salgas</strong>.", type: "subjunctive", exp: "Opinion, Diff Subject 👤≠👥" }
 ];
 
 // --- LOGIC ---
@@ -865,31 +1096,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Utils
-    // Audio Engine v11.0
+    // Utils - Audio Premium V2
     function speak(txt) {
         window.speechSynthesis.cancel();
         const u = new SpeechSynthesisUtterance(txt);
         u.lang = 'es-ES';
         
-        // Smart Voice Selection
-        let voices = window.speechSynthesis.getVoices();
-        // Prioritize Google, then Microsoft/Apple
-        let v = voices.find(voice => voice.name.includes('Google') && voice.lang.includes('es'));
-        if (!v) v = voices.find(voice => (voice.name.includes('Monica') || voice.name.includes('Paulina')) && voice.lang.includes('es'));
-        if (!v) v = voices.find(voice => voice.lang.includes('es'));
+        const voices = window.speechSynthesis.getVoices();
+        // Prefer premium voices
+        const v = voices.find(voice => voice.name.includes('Google') && voice.lang.includes('es')) || 
+                  voices.find(voice => voice.name.includes('Monica') && voice.lang.includes('es')) ||
+                  voices.find(voice => voice.lang.includes('es'));
         
-        if (v) u.voice = v;
-        
+        if(v) u.voice = v;
         window.speechSynthesis.speak(u);
     }
     
-    // Make sure voices are loaded
-    window.speechSynthesis.onvoiceschanged = () => {
-        // Just ensures voices are ready for the speak function
-    };
-    
-    // Global TTS listener
     document.body.addEventListener('click', function(e) {
         if(e.target.classList.contains('tts-icon') && !e.target.closest('#flashcard')) {
             speak(e.target.dataset.tts);
