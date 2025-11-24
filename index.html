@@ -3,38 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expressing Opinions (Personal Constructions)</title>
+    <title>Present Perfect Master</title>
     
     <style>
         :root {
-            /* PALETA AZUL ESTÁNDAR (Unificada) */
-            --primary-blue: #007bff;
+            /* Paleta Azul Estándar */
+            --primary: #007bff;
             --dark-blue: #0056b3;
             --green: #28a745;
             --red: #dc3545;
-            --yellow: #f0ad4e;
+            --yellow: #ffc107;
             
             --bg-color: #f0f4f8;
             --container-bg: #ffffff;
             --text-color: #333;
-            /* Header Azul */
-            --header-bg: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+            --header-bg: linear-gradient(135deg, var(--primary), var(--dark-blue));
             --tab-bg: #f1f1f1;
-            --tab-active-bg: var(--primary-blue);
+            --tab-active-bg: var(--primary);
             --tab-text: #555;
             --tab-active-text: #ffffff;
             --border-color: #dee2e6;
             --light-gray-bg: #f8f9fa;
         }
 
-        /* --- Modo Oscuro --- */
+        /* Modo Oscuro */
         body.dark-mode {
             --bg-color: #121212;
             --container-bg: #1e1e1e;
             --text-color: #e0e0e0;
             --header-bg: #1e1e1e;
             --tab-bg: #333;
-            --tab-active-bg: var(--primary-blue);
+            --tab-active-bg: var(--primary);
             --tab-text: #bbb;
             --tab-active-text: #ffffff;
             --border-color: #444;
@@ -62,7 +61,7 @@
         header {
             background: var(--header-bg);
             color: white;
-            padding: 20px 35px;
+            padding: 25px 35px;
             text-align: center;
             position: relative;
         }
@@ -88,7 +87,7 @@
         }
         .control-button:hover { background: rgba(255,255,255,0.4); }
 
-        /* --- Pestañas --- */
+        /* Pestañas */
         .main-tab-nav {
             display: flex;
             background-color: var(--tab-bg);
@@ -102,213 +101,126 @@
         .main-tab-nav button:hover { background-color: var(--border-color); }
         .main-tab-nav button.active { background-color: var(--tab-active-bg); color: var(--tab-active-text); }
         
-        .main-tab-content { 
-            display: none; 
-            padding: 30px;
-        }
-        .main-tab-content.is-active {
-            display: block;
-            animation: fadeIn 0.5s;
-        }
+        .main-tab-content { display: none; padding: 30px; }
+        .main-tab-content.is-active { display: block; animation: fadeIn 0.5s; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* --- Estilos Generales --- */
-        h2 { color: var(--primary-blue); border-bottom: 2px solid var(--primary-blue); padding-bottom: 5px; font-size: 1.8em; margin-top: 0; }
-        h3 { color: var(--green); font-size: 1.4em; }
-        .accent { color: var(--primary-blue); font-weight: bold; }
+        /* Estilos Generales */
+        h2 { color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 5px; font-size: 1.8em; margin-top: 0; }
+        h3 { color: var(--green); font-size: 1.4em; margin-top: 25px; }
+        .accent { color: var(--primary); font-weight: bold; }
         
         .comparison-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .tense-box { background-color: var(--light-gray-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 20px; }
-        .tense-box h3 { margin-top: 0; font-size: 1.6em; text-align: center; }
+        .tense-box { background-color: var(--light-gray-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 20px; text-align: center;}
         
-        .icon-wrapper { 
+        /* Bridge Visual */
+        .bridge-visual {
             display: flex;
-            justify-content: center;
             align-items: center;
-            height: 80px;
-            margin-bottom: 15px; 
-            font-size: 4.5em; 
-        }
-        
-        .button-primary {
-            background-color: var(--primary-blue); color: white; border: none; padding: 10px 20px;
-            border-radius: 5px; cursor: pointer; font-size: 1em; font-weight: bold; transition: background-color 0.2s;
-        }
-        .button-primary:hover { background-color: var(--dark-blue); }
-        .button-secondary {
-            background-color: #6c757d; color: white; border: none; padding: 8px 15px;
-            border-radius: 5px; cursor: pointer; font-size: 0.9em;
-        }
-
-        .tts-icon {
-            font-size: 1.1em;
-            cursor: pointer;
-            margin-left: 8px;
-            display: inline-block;
-            transition: transform 0.2s;
-        }
-        .tts-icon:hover { transform: scale(1.2); }
-
-        /* --- Visualizador de Fórmula --- */
-        .formula-visualizer {
-            background-color: var(--light-gray-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 20px;
-            text-align: center;
-        }
-        .formula-controls { margin-bottom: 20px; }
-        .formula-controls label { font-size: 1.2em; font-weight: bold; }
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 60px;
-            height: 34px;
-            margin: 0 10px;
-            vertical-align: middle;
-        }
-        .switch input { opacity: 0; width: 0; height: 0; }
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-color: #ccc;
-            transition: .4s;
-            border-radius: 34px;
-        }
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 26px;
-            width: 26px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-        input:checked + .slider { background-color: var(--primary-blue); }
-        input:checked + .slider:before { transform: translateX(26px); }
-        
-        .formula-display { font-size: 1.3em; font-weight: bold; }
-        .formula-part {
-            padding: 8px 12px;
-            border-radius: 5px;
-            background-color: var(--container-bg);
-            border: 1px solid var(--border-color);
-            margin: 0 5px;
-            display: inline-block;
-        }
-        .formula-part.subjunctive { background-color: #fff0f0; color: var(--red); border-color: var(--red); }
-        .formula-part.infinitive { background-color: #f0fff0; color: var(--green); border-color: var(--green); }
-        
-        /* Video Container */
-        .video-container {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%; 
-            height: 0;
-            overflow: hidden;
-            border-radius: 8px;
-            background: #000;
-            margin-top: 20px;
-        }
-        .video-container iframe {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%; border: 0;
-        }
-        .video-placeholder {
+            justify-content: space-between;
             background: var(--light-gray-bg);
-            border: 2px dashed var(--border-color);
-            border-radius: 8px;
             padding: 20px;
+            border-radius: 10px;
+            border: 2px dashed var(--border-color);
+            margin-bottom: 20px;
+        }
+        .bridge-step { flex: 1; text-align: center; }
+        .bridge-arrow { font-size: 2.5em; color: var(--primary); font-weight: bold; display: block;}
+        .bridge-icon { font-size: 3.5em; display: block; margin-bottom: 10px; }
+        .rule-box { background: #e3f2fd; border: 1px solid #90caf9; padding: 10px; border-radius: 5px; margin-top: 10px; text-align: left;}
+        body.dark-mode .rule-box { background: #1e2a36; border-color: #444; }
+
+        /* Video */
+        .video-container { position: relative; width: 100%; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; background: #000; margin-top: 20px; border: 1px solid var(--border-color); }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        
+        /* Visualizer */
+        .formula-visualizer { background-color: var(--light-gray-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 20px; text-align: center; margin-top: 20px; }
+        .formula-part { padding: 8px 12px; border-radius: 5px; background-color: var(--container-bg); border: 1px solid var(--border-color); margin: 0 5px; display: inline-block; font-size: 1.2em; font-weight: bold; }
+        .plus-sign { font-weight: bold; color: var(--primary); font-size: 1.2em; }
+
+        /* The Helper Grid */
+        .haber-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px; margin-bottom: 20px; }
+        .haber-box {
+            background: var(--primary);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
             text-align: center;
-            margin-top: 20px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            font-weight: bold;
+            font-size: 1.2em;
         }
-        .video-placeholder p { font-style: italic; color: #555; }
-        body.dark-mode .video-placeholder p { color: #bbb; }
+        .haber-box:hover { transform: translateY(-3px); background: var(--dark-blue); }
 
+        /* Irregulars */
+        .acronym-container { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 20px; }
+        .acronym-card {
+            width: 100px; height: 100px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+        .acronym-inner {
+            width: 100%; height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+        }
+        .acronym-card.flipped .acronym-inner { transform: rotateY(180deg); }
+        
+        .acronym-front, .acronym-back {
+            position: absolute;
+            width: 100%; height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .acronym-front { background: var(--yellow); color: #333; font-size: 2em; font-weight: bold; border: 2px solid #e0a800; }
+        .acronym-back { background: var(--dark-blue); color: white; transform: rotateY(180deg); font-size: 0.85em; text-align: center; padding: 2px; }
 
-        /* --- Tablas de Formación --- */
-        table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
-        th, td { border: 1px solid var(--border-color); padding: 12px; text-align: center; }
-        th { background-color: var(--light-gray-bg); }
-
-        /* --- Práctica --- */
-        .quiz-section { margin-bottom: 25px; padding-bottom: 25px; border-bottom: 2px dashed var(--border-color); }
+        /* Practice */
         .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-        .section-header h3 { margin: 0; }
-        .refresh-btn { font-size: 0.9em; padding: 5px 10px; background-color: var(--primary-blue); color: white; border:none; border-radius: 4px; cursor: pointer;}
-
-        .quiz-question { margin-bottom: 20px; background: var(--light-gray-bg); padding: 15px; border-radius: 5px; }
-        .quiz-question p { font-size: 1.1em; margin-bottom: 10px; }
-        .quiz-question button { background-color: var(--container-bg); border: 1px solid var(--primary-blue); color: var(--primary-blue); padding: 8px 15px; margin-right: 10px; border-radius: 5px; cursor: pointer; font-size: 1em; margin-top: 5px;}
-        .quiz-question button:hover { background-color: var(--primary-blue); color: white; }
-
-        .quiz-translation {
-            display: block;
-            font-size: 0.9em;
-            font-style: italic;
-            color: #555;
-            margin: -5px 0 10px 20px;
-        }
-        body.dark-mode .quiz-translation { color: #bbb; }
-        .quiz-translation:empty { display: none; }
-
+        .refresh-btn { font-size: 0.9em; padding: 5px 10px; background-color: var(--primary); color: white; border:none; border-radius: 4px; cursor: pointer;}
+        .quiz-question { margin-bottom: 15px; background: var(--light-gray-bg); padding: 15px; border-radius: 5px; border-left: 4px solid var(--primary); }
+        .quiz-question input { padding: 8px; border: 1px solid #ccc; border-radius: 4px; margin-right: 5px; width: 180px; }
+        .quiz-question button { background-color: var(--green); color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; }
         .feedback { font-weight: bold; margin-left: 10px; }
-        .correct { color: var(--green); }
-        .incorrect { color: var(--red); }
-        
-        .explanatory-note {
-            font-size: 0.9em;
-            font-style: italic;
-            background-color: var(--light-gray-bg);
-            border: 1px dashed var(--border-color);
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 15px;
-        }
-        
-        .explanation-text {
-            font-size: 0.9em;
-            color: #555;
-            margin-top: 10px;
-            padding: 8px;
-            background: #e9ecef;
-            border-radius: 4px;
-        }
-        body.dark-mode .explanation-text { color: #ccc; background: #333; }
-
-        /* Historia */
-        .interactive-story { background: #fdfaf6; border: 1px solid var(--yellow); padding: 20px; border-radius: 8px; font-size: 1.2em; line-height: 2; color: #333; }
-        .interactive-story select { font-size: 1em; border: 2px solid #ccc; border-radius: 4px; background: #fff; padding: 2px 5px; }
-        .story-explanation { display: block; font-size: 0.9em; font-style: italic; color: var(--dark-blue); margin-left: 10px; }
-        body.dark-mode .interactive-story { color: #333; }
-        body.dark-mode .story-explanation { color: #80bfff; }
+        .correct { color: var(--green); } .incorrect { color: var(--red); }
 
         /* Drag & Drop */
-        .sorter-container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
-        .dropzone { min-height: 200px; background: var(--light-gray-bg); border: 3px dashed var(--border-color); border-radius: 8px; padding: 10px; }
-        .dropzone.drag-over { background-color: #e9ecef; border-color: var(--primary-blue); }
-        .dropzone h4 { text-align: center; margin-top: 0; }
-        .draggable { background-color: var(--container-bg); border: 1px solid #ccc; padding: 12px; margin-bottom: 8px; border-radius: 5px; cursor: grab; }
-        .draggable.dragging { opacity: 0.5; border: 2px dashed var(--primary-blue); }
-        #items-to-sort { margin-top: 20px; padding: 10px; background: var(--tab-bg); border-radius: 8px; min-height: 60px;}
-        .drag-explanation { font-size: 0.85em; color: #555; margin-top: 5px; padding-top: 5px; border-top: 1px dashed #ccc; }
-        body.dark-mode .drag-explanation { color: #bbb; }
+        .dropzone-container { display: flex; gap: 20px; margin-top: 20px; }
+        .dropzone { flex: 1; min-height: 200px; background: var(--light-gray-bg); border: 3px dashed var(--border-color); border-radius: 8px; padding: 10px; }
+        .dropzone.drag-over { background-color: #e9ecef; border-color: var(--primary); }
+        .dropzone h4 { text-align: center; margin-top: 0; color: var(--dark-blue); }
+        
+        .draggable { 
+            display: inline-block; background: var(--container-bg); border: 1px solid #ccc; 
+            padding: 8px 12px; margin: 5px; border-radius: 20px; 
+            cursor: grab; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .draggable.dragging { opacity: 0.5; border: 2px dashed var(--primary); }
+        #drag-pool { min-height: 80px; background: var(--tab-bg); border-radius: 8px; padding: 15px; margin-bottom: 10px; }
 
         /* Flashcards */
-        .flashcard-app { display: flex; flex-direction: column; align-items: center; }
-        .flashcard-container { width: 90%; max-width: 500px; height: 300px; perspective: 1000px; margin-bottom: 20px; }
+        .flashcard-container { width: 90%; max-width: 500px; height: 300px; perspective: 1000px; margin: 0 auto 20px; }
         .flashcard { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.6s; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-radius: 10px; }
         .flashcard.is-flipped { transform: rotateY(180deg); }
-        .card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 25px; font-size: 1.5em; border-radius: 10px; box-sizing: border-box; white-space: normal; word-break: break-word; }
-        .card-front { background: var(--container-bg); border: 2px solid var(--primary-blue); color: var(--text-color); }
+        .card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; font-size: 1.4em; border-radius: 10px; box-sizing: border-box; white-space: normal; word-break: break-word; }
+        .card-front { background: var(--container-bg); border: 2px solid var(--primary); color: var(--text-color); }
         .card-back { background: var(--light-gray-bg); border: 2px solid var(--green); color: var(--dark-blue); transform: rotateY(180deg); }
         .card-back p { margin: 10px 0 0; font-size: 0.8em; color: var(--text-color); opacity: 0.8; }
         body.dark-mode .card-back { color: var(--text-color); }
-        .flashcard-nav { display: flex; justify-content: center; gap: 20px; }
-        .flashcard-nav button { font-size: 1em; font-weight: bold; }
+        .flashcard-nav { text-align: center; }
+        .btn-fc { background-color: #6c757d; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 1em; margin: 0 5px; }
+        .btn-fc.flip { background-color: var(--primary); }
+        
+        .tts-icon { font-size: 1.1em; cursor: pointer; margin-left: 8px; transition: transform 0.2s; }
+        .tts-icon:hover { transform: scale(1.2); }
     </style>
 </head>
 <body class="">
@@ -316,813 +228,467 @@
     <div class="container">
         <header>
             <div class="header-controls">
-                <button id="lang-toggle" class="control-button">(EN / ES)</button>
-                <button id="theme-toggle" class="control-button">☀️/🌙</button>
+                <button class="control-button" onclick="toggleLang()">EN / ES</button>
+                <button class="control-button" onclick="toggleTheme()">☀️/🌙</button>
             </div>
-            <h1 data-lang-key="header_title">Expressing Opinions</h1>
-            <p data-lang-key="header_subtitle">Personal Constructions (Parece bien/mal...)</p>
+            <h1 data-lang-key="header_title">Present Perfect</h1>
+            <p data-lang-key="header_subtitle">The Bridge: Connecting Past & Present 🌉</p>
         </header>
         
         <nav class="main-tab-nav">
-            <button class="main-tab-link active" onclick="changeMainTab(event, 'tab-metaphor')" data-lang-key="tab_metaphor">👤=👤 vs. 👤≠👥 The Rule</button>
-            <button class="main-tab-link" onclick="changeMainTab(event, 'tab-formacion')" data-lang-key="tab_formation">✍️ Verbs & Structure</button>
-            <button class="main-tab-link" onclick="changeMainTab(event, 'tab-practica')" data-lang-key="tab_practice">🧠 Interactive Practice</button>
+            <button class="main-tab-link active" onclick="changeMainTab(event, 'tab-metaphor')" data-lang-key="tab_metaphor">🌉 The Concept</button>
+            <button class="main-tab-link" onclick="changeMainTab(event, 'tab-formation')" data-lang-key="tab_formation">✍️ Formula</button>
+            <button class="main-tab-link" onclick="changeMainTab(event, 'tab-practice')" data-lang-key="tab_practice">🧠 Interactive Practice</button>
             <button class="main-tab-link" onclick="changeMainTab(event, 'tab-flashcards')" data-lang-key="tab_flashcards">📇 Flashcards</button>
         </nav>
 
         <main>
             <div id="tab-metaphor" class="main-tab-content is-active">
-                <h2 data-lang-key="metaphor_title">The Rule: Same vs. Different Subject</h2>
-                <p style="text-align:center; margin-bottom: 20px;">This rule applies to verbs like <em>parecer bien, importar, interesar</em> (similar to <em>gustar</em>).</p>
+                <h2 data-lang-key="metaphor_title">The Bridge Metaphor</h2>
                 
-                <div class="comparison-grid">
-                    <div class="tense-box">
-                        <div class="icon-wrapper" style="color: var(--green);">
-                            <span>👤=👤</span>
-                        </div>
-                        <h3 style="color: var(--green);">Infinitive</h3>
-                        <p data-lang-key="metaphor_inf_desc">When the person expressing the opinion is the <strong>SAME</strong> as the person performing the action.</p>
-                        <p><strong>Ex:</strong> "Me parece bien <strong>hablar</strong>." <br>(It seems good to me to speak)</p>
+                <div class="bridge-visual">
+                    <div class="bridge-step">
+                        <span class="bridge-icon">⏪</span>
+                        <strong data-lang-key="bridge_past">PAST</strong><br>
+                        <small data-lang-key="bridge_past_desc">Completed action</small>
                     </div>
-                    <div class="tense-box">
-                        <div class="icon-wrapper" style="color: var(--red);">
-                            <span>👤≠👥</span>
+                    <div class="bridge-step" style="flex: 2;">
+                        <span class="bridge-icon">🌉</span>
+                        <strong data-lang-key="bridge_link">The Bridge</strong><br>
+                        <div class="rule-box">
+                            <strong>Rule:</strong> <span data-lang-key="rule_desc">Use <em>Haber</em> + <em>Participio</em> to connect the past to the present.</span>
                         </div>
-                        <h3 style="color: var(--red);">Subjunctive</h3>
-                        <p data-lang-key="metaphor_subj_desc">When the person expressing the opinion is <strong>DIFFERENT</strong> from the person performing the action.</p>
-                        <p><strong>Ex:</strong> "Me parece bien que <strong>hables</strong>." <br>(It seems good to me that you speak)</p>
+                    </div>
+                    <div class="bridge-step">
+                        <span class="bridge-icon">👇</span>
+                        <strong data-lang-key="bridge_pres">PRESENT</strong><br>
+                        <small data-lang-key="bridge_pres_desc">Relevant now</small>
                     </div>
                 </div>
 
-                <h3 style="margin-top: 30px;">Video Tutorial</h3>
-                <div class="video-placeholder" id="video-placeholder-id">
-                    <p data-lang-key="viz_video_desc">
-                        <iframe src="https://drive.google.com/file/d/1Zp_seWL55p9QxQRjH15PT_KJHSoa4LWA/preview" width="640" height="400" allow="autoplay"></iframe>
-                    </p>
+                <h3 data-lang-key="video_title">Video Tutorial</h3>
+                <div class="video-container">
+                    <iframe src="https://drive.google.com/file/d/1Ez-tCYUf3rnTImlgoRKYdsewhWE9iOzN/preview" allow="autoplay"></iframe>
                 </div>
 
-                <h3 data-lang-key="viz_title" style="margin-top: 30px;">Interactive Formula Visualizer</h3>
-                <p data-lang-key="viz_desc">How does the sentence change? Click the "QUE" switch to find out.</p>
-                
+                <h3 style="margin-top:30px;" data-lang-key="viz_title">Formula Visualizer</h3>
                 <div class="formula-visualizer">
-                    <div class="formula-controls">
-                        <label data-lang-key="viz_switch_inf">Infinitive</label>
-                        <label class="switch">
-                            <input type="checkbox" id="que-toggle" onchange="toggleFormula()">
-                            <span class="slider"></span>
-                        </label>
-                        <label data-lang-key="viz_switch_subj">Subjunctive (add "QUE")</label>
+                    <p data-lang-key="viz_desc">Click to build the structure.</p>
+                    <div style="font-size: 2em; margin-bottom: 15px;">
+                        <span class="formula-part" onclick="speak('Yo he')">Yo he</span> 
+                        <span class="plus-sign">+</span>
+                        <span class="formula-part" onclick="speak('comido')">comido</span>
                     </div>
-                    <div class="formula-display">
-                        <span class="formula-part">A mí me parece bien...</span>
-                        <span class="formula-part" id="formula-que" style="display: none; background-color: #eee; border-color: #999;">que</span>
-                        <span class="formula-part infinitive" id="formula-result"><strong>participar</strong>.</span>
-                    </div>
+                    <p style="font-style: italic; color:#666;" data-lang-key="viz_meaning">= I have eaten</p>
                 </div>
             </div>
 
-            <div id="tab-formacion" class="main-tab-content">
-                <h2 data-lang-key="form_title">How It Works (The Structure)</h2>
+            <div id="tab-formation" class="main-tab-content">
+                <h2 data-lang-key="form_title">How It Works</h2>
                 
-                <p data-lang-key="form_p1_desc">These verbs use Indirect Object Pronouns (me, te, le...) to say "to whom" the feeling or opinion occurs. They all follow the <em>GUSTAR</em> pattern.</p>
-                
-                <div class="comparison-grid">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Clarifier (Optional)</th>
-                                <th>Pronoun (Required)</th>
-                                <th>Opinion Verb</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>(A mí)</td><td><strong>me</strong></td><td rowspan="5">parece bien / mal<br>importa<br>interesa<br>gusta / encanta<br>molesta<br>sorprende</td></tr>
-                            <tr><td>(A ti)</td><td><strong>te</strong></td></tr>
-                            <tr><td>(A él/ella)</td><td><strong>le</strong></td></tr>
-                            <tr><td>(A nosotros)</td><td><strong>nos</strong></td></tr>
-                            <tr><td>(A ellos/as)</td><td><strong>les</strong></td></tr>
-                        </tbody>
-                    </table>
+                <p data-lang-key="form_intro">The Present Perfect is formed by two parts: The Auxiliary Verb (Helper) and the Past Participle.</p>
+
+                <h3>1. The Helper (Haber)</h3>
+                <p data-lang-key="helper_desc">This verb changes based on <em>who</em> is doing the action. Click to listen.</p>
+                <div class="haber-grid">
+                    <div class="haber-box" onclick="speak('Yo he')">Yo <strong>he</strong></div>
+                    <div class="haber-box" onclick="speak('Tú has')">Tú <strong>has</strong></div>
+                    <div class="haber-box" onclick="speak('Él ha')">Él/Ella <strong>ha</strong></div>
+                    <div class="haber-box" onclick="speak('Nosotros hemos')">Nosotros <strong>hemos</strong></div>
+                    <div class="haber-box" onclick="speak('Vosotros habéis')">Vosotros <strong>habéis</strong></div>
+                    <div class="haber-box" onclick="speak('Ellos han')">Ellos <strong>han</strong></div>
                 </div>
-                
-                <h3>Examples:</h3>
-                <div class="tense-box" style="text-align: left;">
-                   <ul>
-                       <li>(A mí) <strong>Me parece bien</strong> <u>ir</u>. (Same Subject 👤=👤)</li>
-                       <li>(A mí) <strong>Me parece bien</strong> que tú <u>vayas</u>. (Diff Subject 👤≠👥)</li>
-                       <li>(A nos) <strong>Nos parece mal</strong> <u>mentir</u>. (Same Subject 👤=👤)</li>
-                       <li>(A nos) <strong>Nos parece mal</strong> que ellos <u>mientan</u>. (Diff Subject 👤≠👥)</li>
-                   </ul>
-                </div>
+
+                <h3 style="margin-top:30px;">2. The Irregulars (REVV MAC PH DD)</h3>
+                <p data-lang-key="irreg_desc">Most verbs end in <em>-ado</em> or <em>-ido</em>. But these 11 verbs are special. Memorize the acronym!</p>
+                <div class="acronym-container" id="acronyms">
+                    </div>
             </div>
 
-            <div id="tab-practica" class="main-tab-content">
-                <h2>Practice Gym</h2>
+            <div id="tab-practice" class="main-tab-content">
                 
                 <div class="quiz-section">
                     <div class="section-header">
-                        <h3>Part 1: Quick Quiz</h3>
-                        <button id="generate-quiz" class="refresh-btn button-secondary">New Quiz</button>
+                        <h3 data-lang-key="quiz_title">Part 1: Conjugation Quiz</h3>
+                        <button class="refresh-btn" onclick="generateQuiz()" data-lang-key="btn_new">New Questions</button>
                     </div>
-                    <div class="explanatory-note">Note: Audio reads infinitives to avoid spoilers.</div>
+                    <p data-lang-key="quiz_instr">Write the correct form of "Haber" + Participle.</p>
                     <div id="quiz-container"></div>
                 </div>
 
-                <div class="quiz-section">
-                    <div class="section-header">
-                        <h3>Part 2: Interactive Story</h3>
-                        <button id="generate-story" class="refresh-btn button-secondary">New Story</button>
-                    </div>
-                    <p>Complete the story by choosing the correct verb form.</p>
-                    <div id="story-container" class="interactive-story"></div>
-                    <button id="check-story-btn" class="button-primary" style="margin-top: 20px;">Check Story</button>
-                </div>
+                <hr style="margin: 30px 0; border-top: 1px dashed #ccc;">
 
                 <div class="quiz-section">
                     <div class="section-header">
-                        <h3>Part 3: Sentence Sorter</h3>
-                        <button id="generate-drag" class="refresh-btn button-secondary">New Sorter</button>
+                        <h3 data-lang-key="drag_title">Part 2: Regular vs. Irregular</h3>
+                        <button class="refresh-btn" onclick="generateDragDrop()" data-lang-key="btn_reset">Reset</button>
                     </div>
-                    <p>Drag the phrase based on the subject rule.</p>
-                    <div id="items-to-sort">
-                        <div id="drag-items-pool"></div>
-                    </div>
+                    <p data-lang-key="drag_instr">Drag the participle to the correct box.</p>
+                    
+                    <div id="drag-pool"></div>
+                    
                     <div class="sorter-container">
-                        <div class="dropzone" id="zone-infinitive">
-                            <h4 style="color: var(--green);">Infinitive</h4>
-                            <p style="font-size:0.8em; text-align:center;">(Same Subject 👤=👤)</p>
+                        <div class="dropzone" id="zone-regular">
+                            <h4>✅ Regular (-ado/-ido)</h4>
                         </div>
-                        <div class="dropzone" id="zone-subjunctive">
-                            <h4 style="color: var(--red);">Subjunctive</h4>
-                            <p style="font-size:0.8em; text-align:center;">(Different Subject 👤≠👥)</p>
+                        <div class="dropzone" id="zone-irregular">
+                            <h4>⚠️ Irregular (REVV MAC)</h4>
                         </div>
                     </div>
-                    <button id="check-drag-btn" class="button-primary" style="margin-top: 20px;">Check Sorter</button>
-                    <div id="drag-feedback" class="feedback"></div>
+                    <button class="button-primary" onclick="checkDrag()" style="margin-top:20px; display:block; width:100%;" data-lang-key="btn_check">Check Sorting</button>
+                    <div id="drag-feedback" class="feedback" style="text-align:center; margin-top:10px;"></div>
                 </div>
             </div>
 
             <div id="tab-flashcards" class="main-tab-content">
-                <h2>Flashcards</h2>
-                <div class="flashcard-app">
-                    <div class="flashcard-container">
-                        <div class="flashcard" id="flashcard">
-                            <div class="card-face card-front" id="card-front"></div>
-                            <div class="card-face card-back" id="card-back"></div>
-                        </div>
-                    </div>
-                    <div class="flashcard-nav">
-                        <button onclick="prevCard()" class="button-secondary">Previous</button>
-                        <button onclick="flipCard()" class="button-primary">Flip</button>
-                        <button onclick="nextCard()" class="button-secondary">Next</button>
+                <h2 data-lang-key="flash_title">Flashcards</h2>
+                <div class="flashcard-container">
+                    <div class="flashcard" id="flashcard">
+                        <div class="card-face card-front" id="fc-front"></div>
+                        <div class="card-face card-back" id="fc-back"></div>
                     </div>
                 </div>
+                <div class="flashcard-nav">
+                    <button class="btn-fc" onclick="prevCard()" data-lang-key="btn_prev">Prev</button>
+                    <button class="btn-fc flip" onclick="flipCard()" data-lang-key="btn_flip">Flip</button>
+                    <button class="btn-fc" onclick="nextCard()" data-lang-key="btn_next">Next</button>
+                </div>
             </div>
-
         </main>
     </div>
 
 <script>
+// --- UI STRINGS (Translation) ---
+const uiData = {
+    en: {
+        header_title: "Present Perfect",
+        header_subtitle: "The Bridge: Connecting Past & Present 🌉",
+        tab_metaphor: "🌉 The Concept",
+        tab_formation: "🧪 Formula",
+        tab_practice: "🧠 Interactive Practice",
+        tab_flashcards: "📇 Flashcards",
+        metaphor_title: "The Bridge Metaphor",
+        bridge_past: "PAST ACTION",
+        bridge_past_desc: "Completed action",
+        bridge_link: "The Bridge",
+        rule_desc: "Use <em>Haber</em> + <em>Participle</em> to connect past to present.",
+        bridge_pres: "PRESENT",
+        bridge_pres_desc: "Relevant now",
+        video_title: "Video Tutorial",
+        viz_title: "Formula Visualizer",
+        viz_desc: "Click to build the structure.",
+        viz_meaning: "= I have eaten",
+        form_title: "How It Works",
+        form_intro: "The Present Perfect is formed by two parts: The Auxiliary Verb (Helper) and the Past Participle.",
+        helper_desc: "This verb changes based on <em>who</em> is doing the action. Click to listen.",
+        irreg_desc: "Most verbs end in <em>-ado</em> or <em>-ido</em>. But these 11 verbs are special. Memorize the acronym!",
+        quiz_title: "Part 1: Conjugation Quiz",
+        btn_new: "New Questions",
+        quiz_instr: "Write the correct form of \"Haber\" + Participle.",
+        drag_title: "Part 2: Regular vs. Irregular",
+        btn_reset: "Reset",
+        drag_instr: "Drag the participle to the correct box.",
+        btn_check: "Check Sorting",
+        flash_title: "Flashcards",
+        btn_prev: "Prev",
+        btn_flip: "Flip",
+        btn_next: "Next"
+    },
+    es: {
+        header_title: "Pretérito Perfecto",
+        header_subtitle: "El Puente: Conectando Pasado y Presente 🌉",
+        tab_metaphor: "🌉 El Concepto",
+        tab_formation: "🧪 Fórmula",
+        tab_practice: "🧠 Práctica Interactiva",
+        tab_flashcards: "📇 Flashcards",
+        metaphor_title: "La Metáfora del Puente",
+        bridge_past: "ACCIÓN PASADA",
+        bridge_past_desc: "Acción terminada",
+        bridge_link: "El Puente",
+        rule_desc: "Usa <em>Haber</em> + <em>Participio</em> para conectar pasado y presente.",
+        bridge_pres: "PRESENTE",
+        bridge_pres_desc: "Relevante ahora",
+        video_title: "Video Tutorial",
+        viz_title: "Visualizador de Fórmula",
+        viz_desc: "Haz clic para construir la estructura.",
+        viz_meaning: "= Yo he comido",
+        form_title: "Cómo Funciona",
+        form_intro: "El Pretérito Perfecto se forma con dos partes: El Verbo Auxiliar y el Participio.",
+        helper_desc: "Este verbo cambia según <em>quién</em> hace la acción. Haz clic para escuchar.",
+        irreg_desc: "La mayoría terminan en <em>-ado</em> o <em>-ido</em>. Pero estos 11 son especiales.",
+        quiz_title: "Parte 1: Quiz de Conjugación",
+        btn_new: "Nuevas Preguntas",
+        quiz_instr: "Escribe la forma correcta de \"Haber\" + Participio.",
+        drag_title: "Parte 2: Regular vs. Irregular",
+        btn_reset: "Reiniciar",
+        drag_instr: "Arrastra el participio a la caja correcta.",
+        btn_check: "Verificar",
+        flash_title: "Flashcards",
+        btn_prev: "Ant",
+        btn_flip: "Voltear",
+        btn_next: "Sig"
+    }
+};
+let currentLang = 'en';
 
 // --- DATA ---
-
-const flashcardData = [
-    { en: "It seems good to me to help.", es: "Me parece bien <strong>ayudar</strong>.", explanation: "Opinion, Same Subject 👤=👤 -> Infinitive" },
-    { en: "It seems good to me that you help.", es: "Me parece bien que <strong>ayudes</strong>.", explanation: "Opinion, Diff Subject 👤≠👥 -> Subjunctive" },
-    { en: "It seems bad to us to lie.", es: "Nos parece mal <strong>mentir</strong>.", explanation: "Opinion, Same Subject 👤=👤 -> Infinitive" },
-    { en: "It seems bad to us that they lie.", es: "Nos parece mal que ellos <strong>mientan</strong>.", explanation: "Opinion, Diff Subject 👤≠👥 -> Subjunctive" },
-    { en: "It bothers you (fam) to wait.", es: "Te molesta <strong>esperar</strong>.", explanation: "Feeling, Same Subject 👤=👤 -> Infinitive" },
-    { en: "It bothers you that I wait.", es: "Te molesta que yo <strong>espere</strong>.", explanation: "Feeling, Diff Subject 👤≠👥 -> Subjunctive" },
-    { en: "It matters to him to learn.", es: "Le importa <strong>aprender</strong>.", explanation: "Opinion, Same Subject 👤=👤 -> Infinitive" },
-    { en: "It matters to him that she learns.", es: "Le importa que ella <strong>aprenda</strong>.", explanation: "Opinion, Diff Subject 👤≠👥 -> Subjunctive" },
-    { en: "It interests me to know.", es: "Me interesa <strong>saber</strong>.", explanation: "Opinion, Same Subject -> Infinitive" },
-    { en: "It interests me that you know.", es: "Me interesa que <strong>sepas</strong>.", explanation: "Opinion, Diff Subject -> Subjunctive" },
-    { en: "It seems strange to travel alone.", es: "Me parece extraño <strong>viajar</strong> solo.", explanation: "Opinion, Same Subject -> Infinitive" },
-    { en: "It seems strange that he travels alone.", es: "Me parece extraño que él <strong>viaje</strong> solo.", explanation: "Opinion, Diff Subject -> Subjunctive" }
+const irregulars = [
+    {l:"R", w:"Romper", p:"Roto"}, {l:"E", w:"Escribir", p:"Escrito"}, {l:"V", w:"Ver", p:"Visto"}, 
+    {l:"V", w:"Volver", p:"Vuelto"}, {l:"M", w:"Morir", p:"Muerto"}, {l:"A", w:"Abrir", p:"Abierto"}, 
+    {l:"C", w:"Cubrir", p:"Cubierto"}, {l:"P", w:"Poner", p:"Puesto"}, {l:"H", w:"Hacer", p:"Hecho"}, 
+    {l:"D", w:"Decir", p:"Dicho"}, {l:"D", w:"Devolver", p:"Devuelto"}
 ];
 
+// 30 Questions for Quiz
 const quizBank = [
-    { id: "q1", question: "Me parece bien (ir) al cine.", options: ["ir", "vaya"], correct: 0, explanation: "Same subject -> Infinitive. 👤=👤" },
-    { id: "q2", question: "Me parece bien que tú (ir) al cine.", options: ["ir", "vayas"], correct: 1, explanation: "Different subjects -> Subjunctive. 👤≠👥" },
-    { id: "q3", question: "Nos parece mal (llegar) tarde.", options: ["llegar", "lleguemos"], correct: 0, explanation: "Same subject -> Infinitive. 👤=👤" },
-    { id: "q4", question: "Nos parece mal que ellos (llegar) tarde.", options: ["llegar", "lleguen"], correct: 1, explanation: "Different subjects -> Subjunctive. 👤≠👥" },
-    { id: "q5", question: "Le importa (estudiar).", options: ["estudiar", "estudie"], correct: 0, explanation: "Same subject -> Infinitive. 👤=👤" },
-    { id: "q6", question: "Le importa que nosotros (estudiar).", options: ["estudiar", "estudiemos"], correct: 1, explanation: "Different subjects -> Subjunctive. 👤≠👥" },
-    { id: "q7", question: "Te sorprende (ver) esto.", options: ["ver", "veas"], correct: 0, explanation: "Same subject -> Infinitive. 👤=👤" },
-    { id: "q8", question: "Te sorprende que yo (ver) esto.", options: ["ver", "vea"], correct: 1, explanation: "Different subjects -> Subjunctive. 👤≠👥" },
-    { id: "q9", question: "Nos interesa (aprender).", options: ["aprender", "aprendamos"], correct: 0, explanation: "Same subject -> Infinitive." },
-    { id: "q10", question: "Nos interesa que tú (aprender).", options: ["aprender", "aprendas"], correct: 1, explanation: "Different subjects -> Subjunctive." },
-    { id: "q11", question: "Les molesta (pagar).", options: ["pagar", "paguen"], correct: 0, explanation: "Same subject -> Infinitive." },
-    { id: "q12", question: "Les molesta que yo no (pagar).", options: ["pagar", "pague"], correct: 1, explanation: "Different subjects -> Subjunctive." },
-    { id: "q13", question: "Me parece justo (dividir) la cuenta.", options: ["dividir", "divida"], correct: 0, explanation: "Same subject -> Infinitive." },
-    { id: "q14", question: "Me parece justo que (dividir) la cuenta.", options: ["dividir", "dividamos"], correct: 1, explanation: "Different subjects -> Subjunctive." },
-    { id: "q15", question: "Te encanta (bailar).", options: ["bailar", "bailes"], correct: 0, explanation: "Same subject -> Infinitive." },
-    { id: "q16", question: "Te encanta que yo (bailar).", options: ["bailar", "baile"], correct: 1, explanation: "Different subjects -> Subjunctive." },
-    { id: "q17", question: "Le parece importante (reciclar).", options: ["reciclar", "recicle"], correct: 0, explanation: "Same subject -> Infinitive." },
-    { id: "q18", question: "Le parece importante que la gente (reciclar).", options: ["reciclar", "recicle"], correct: 1, explanation: "Different subjects -> Subjunctive." },
-    { id: "q19", question: "Nos cae mal (esperar).", options: ["esperar", "esperemos"], correct: 0, explanation: "Same subject -> Infinitive." },
-    { id: "q20", question: "Nos cae mal que ellos nos (hacer) esperar.", options: ["hacer", "hagan"], correct: 1, explanation: "Different subjects -> Subjunctive." },
-    { id: "q21", question: "Me parece extraño (estar) solo.", options: ["estar", "esté"], correct: 0, explanation: "Same subject -> Infinitive." },
-    { id: "q22", question: "Me parece extraño que tú (estar) solo.", options: ["estar", "estés"], correct: 1, explanation: "Different subjects -> Subjunctive." },
-    { id: "q23", question: "Les hace ilusión (viajar).", options: ["viajar", "viajen"], correct: 0, explanation: "Same subject -> Infinitive." },
-    { id: "q24", question: "Les hace ilusión que nosotros (viajar).", options: ["viajar", "viajemos"], correct: 1, explanation: "Different subjects -> Subjunctive." },
-    { id: "q25", question: "Te importa (saber) la verdad.", options: ["saber", "sepas"], correct: 0, explanation: "Same subject -> Infinitive." },
-    { id: "q26", question: "Te importa que ella (saber) la verdad.", options: ["saber", "sepa"], correct: 1, explanation: "Different subjects -> Subjunctive." },
-    { id: "q27", question: "Me parece horrible (perder) tiempo.", options: ["perder", "pierda"], correct: 0, explanation: "Same subject -> Infinitive." },
-    { id: "q28", question: "Me parece horrible que tú (perder) tiempo.", options: ["perder", "pierdas"], correct: 1, explanation: "Different subjects -> Subjunctive." },
-    { id: "q29", question: "Nos gusta (comer) bien.", options: ["comer", "comamos"], correct: 0, explanation: "Same subject -> Infinitive." },
-    { id: "q30", question: "Nos gusta que ellos (comer) bien.", options: ["comer", "coman"], correct: 1, explanation: "Different subjects -> Subjunctive." }
+    {q: "Yo (hablar)", a: "he hablado"}, {q: "Tú (comer)", a: "has comido"}, {q: "Ella (vivir)", a: "ha vivido"},
+    {q: "Nosotros (trabajar)", a: "hemos trabajado"}, {q: "Ellos (beber)", a: "han bebido"}, {q: "Vosotros (estudiar)", a: "habéis estudiado"},
+    {q: "Yo (escribir)", a: "he escrito"}, {q: "Tú (ver)", a: "has visto"}, {q: "Él (romper)", a: "ha roto"},
+    {q: "Nosotros (volver)", a: "hemos vuelto"}, {q: "Ellas (morir)", a: "han muerto"}, {q: "Yo (abrir)", a: "he abierto"},
+    {q: "Tú (poner)", a: "has puesto"}, {q: "Usted (hacer)", a: "ha hecho"}, {q: "Nosotros (decir)", a: "hemos dicho"},
+    {q: "Ellos (cubrir)", a: "han cubierto"}, {q: "Yo (devolver)", a: "he devuelto"}, {q: "Tú (viajar)", a: "has viajado"},
+    {q: "Ella (leer)", a: "ha leído"}, {q: "Nosotros (oír)", a: "hemos oído"},
+    {q: "Ellos (imprimir)", a: "han impreso"}, {q: "Yo (descubrir)", a: "he descubierto"}, {q: "Tú (cantar)", a: "has cantado"},
+    {q: "Ella (correr)", a: "ha corrido"}, {q: "Nosotros (salir)", a: "hemos salido"}, {q: "Vosotros (jugar)", a: "habéis jugado"},
+    {q: "Ustedes (dormir)", a: "han dormido"}, {q: "Yo (limpiar)", a: "he limpiado"}, {q: "Tú (cocinar)", a: "has cocinado"},
+    {q: "Él (caminar)", a: "ha caminado"}
 ];
 
-const storyBank = [
-    {
-        id: "story1",
-        html: `
-            <span><strong>La Fiesta:</strong><br><br></span>
-            <span>A mí me hace ilusión</span> 
-            <select id="story1-1" data-type="infinitive"><option value="c">ir</option><option value="w">vaya</option></select>
-            <span>a la fiesta. Pero a mis padres les parece mal que yo</span> 
-            <select id="story1-2" data-type="subjunctive"><option value="c">vuelva</option><option value="w">volver</option></select>
-            <span>tarde. A ellos les importa</span> 
-            <select id="story1-3" data-type="infinitive"><option value="w">duerman</option><option value="c">dormir</option></select>
-            <span>tranquilos, y les molesta que yo</span> 
-            <select id="story1-4" data-type="subjunctive"><option value="w">hacer</option><option value="c">haga</option></select>
-            <span>ruido.</span>
-        `
-    },
-    {
-        id: "story2",
-        html: `
-            <span><strong>El Proyecto Comunitario:</strong><br><br></span>
-            <span>Nos parece bien</span> 
-            <select id="story2-1" data-type="infinitive"><option value="w">ayudemos</option><option value="c">ayudar</option></select>
-            <span>a la comunidad. Nos sorprende que el gobierno no</span> 
-            <select id="story2-2" data-type="subjunctive"><option value="c">haga</option><option value="w">hacer</option></select>
-            <span>más. A la gente le encanta</span> 
-            <select id="story2-3" data-type="infinitive"><option value="c">recibir</option><option value="w">reciba</option></select>
-            <span>ayuda, y les hace ilusión que nosotros</span> 
-            <select id="story2-4" data-type="subjunctive"><option value="w">estar</option><option value="c">estemos</option></select>
-            <span>aquí.</span>
-        `
-    },
-    {
-        id: "story3",
-        html: `
-            <span><strong>Compañeros de Piso:</strong><br><br></span>
-            <span>Me molesta</span> 
-            <select id="story3-1" data-type="infinitive"><option value="c">limpiar</option><option value="w">limpie</option></select>
-            <span>la cocina siempre. Me parece injusto que tú nunca</span> 
-            <select id="story3-2" data-type="subjunctive"><option value="c">ayudes</option><option value="w">ayudar</option></select>
-            <span>. Te importa mucho</span> 
-            <select id="story3-3" data-type="infinitive"><option value="c">ver</option><option value="w">veas</option></select>
-            <span>la televisión, pero no te importa que la casa</span> 
-            <select id="story3-4" data-type="subjunctive"><option value="c">esté</option><option value="w">estar</option></select>
-            <span>sucia.</span>
-        `
-    },
-    {
-        id: "story4",
-        html: `
-            <span><strong>Viaje Escolar:</strong><br><br></span>
-            <span>Al profesor le interesa</span> 
-            <select id="story4-1" data-type="infinitive"><option value="c">visitar</option><option value="w">visite</option></select>
-            <span>el museo. A los estudiantes les parece aburrido que el guía</span> 
-            <select id="story4-2" data-type="subjunctive"><option value="c">hable</option><option value="w">hablar</option></select>
-            <span>tanto. Les gustaría</span> 
-            <select id="story4-3" data-type="infinitive"><option value="c">salir</option><option value="w">salgan</option></select>
-            <span>pronto, pero al profesor le parece mal que ellos no</span> 
-            <select id="story4-4" data-type="subjunctive"><option value="c">presten</option><option value="w">prestar</option></select>
-            <span>atención.</span>
-        `
-    },
-    {
-        id: "story5",
-        html: `
-            <span><strong>Tecnología:</strong><br><br></span>
-            <span>Me parece fascinante</span> 
-            <select id="story5-1" data-type="infinitive"><option value="c">usar</option><option value="w">use</option></select>
-            <span>la IA. Pero me preocupa que la tecnología</span> 
-            <select id="story5-2" data-type="subjunctive"><option value="c">reemplace</option><option value="w">reemplazar</option></select>
-            <span>empleos. A mi hermano le da igual</span> 
-            <select id="story5-3" data-type="infinitive"><option value="c">perder</option><option value="w">pierda</option></select>
-            <span>su trabajo, pero a mí me importa que nosotros</span> 
-            <select id="story5-4" data-type="subjunctive"><option value="c">tengamos</option><option value="w">tener</option></select>
-            <span>futuro.</span>
-        `
-    },
-    {
-        id: "story6",
-        html: `
-            <span><strong>El Gimnasio:</strong><br><br></span>
-            <span>Me hace ilusión</span> 
-            <select id="story6-1" data-type="infinitive"><option value="c">empezar</option><option value="w">empiece</option></select>
-            <span>el gimnasio. Pero me molesta que haya</span> 
-            <select id="story6-2" data-type="subjunctive"><option value="w">haber</option><option value="c">tanta</option></select>
-            <span>gente. A mi entrenador le parece bien que yo</span> 
-            <select id="story6-3" data-type="subjunctive"><option value="c">levante</option><option value="w">levantar</option></select>
-            <span>pesas, pero me pide que no</span> 
-            <select id="story6-4" data-type="infinitive"><option value="w">corra</option><option value="c">correr</option></select>
-            <span>demasiado.</span>
-        `
-    },
-    {
-        id: "story7",
-        html: `
-            <span><strong>La Dieta:</strong><br><br></span>
-            <span>Al médico le parece mal</span> 
-            <select id="story7-1" data-type="infinitive"><option value="c">comer</option><option value="w">coma</option></select>
-            <span>mucha azúcar. Le importa que sus pacientes</span> 
-            <select id="story7-2" data-type="subjunctive"><option value="c">tengan</option><option value="w">tener</option></select>
-            <span>buena salud. A mí me cuesta</span> 
-            <select id="story7-3" data-type="infinitive"><option value="c">dejar</option><option value="w">deje</option></select>
-            <span>los dulces, pero sé que es mejor que yo</span> 
-            <select id="story7-4" data-type="subjunctive"><option value="c">coma</option><option value="w">comer</option></select>
-            <span>fruta.</span>
-        `
-    },
-    {
-        id: "story8",
-        html: `
-            <span><strong>El Concierto:</strong><br><br></span>
-            <span>Nos encanta</span> 
-            <select id="story8-1" data-type="infinitive"><option value="c">escuchar</option><option value="w">escuchemos</option></select>
-            <span>música en vivo. Nos molesta que las entradas</span> 
-            <select id="story8-2" data-type="subjunctive"><option value="c">sean</option><option value="w">ser</option></select>
-            <span>tan caras. A mi amigo le da igual</span> 
-            <select id="story8-3" data-type="infinitive"><option value="c">pagar</option><option value="w">pague</option></select>
-            <span>mucho, pero a mí me importa que nosotros</span> 
-            <select id="story8-4" data-type="subjunctive"><option value="c">ahorremos</option><option value="w">ahorrar</option></select>
-            <span>dinero.</span>
-        `
-    },
-    {
-        id: "story9",
-        html: `
-            <span><strong>La Boda:</strong><br><br></span>
-            <span>A mi hermana le hace ilusión</span> 
-            <select id="story9-1" data-type="infinitive"><option value="c">casarse</option><option value="w">se case</option></select>
-            <span>. A mis padres les parece bien que ella</span> 
-            <select id="story9-2" data-type="subjunctive"><option value="c">sea</option><option value="w">ser</option></select>
-            <span>feliz. A mí me sorprende</span> 
-            <select id="story9-3" data-type="infinitive"><option value="c">ver</option><option value="w">vea</option></select>
-            <span>tantos invitados, y me molesta que</span> 
-            <select id="story9-4" data-type="subjunctive"><option value="c">haya</option><option value="w">haber</option></select>
-            <span>tanto ruido.</span>
-        `
-    },
-    {
-        id: "story10",
-        html: `
-            <span><strong>El Trabajo:</strong><br><br></span>
-            <span>A mi jefe le interesa</span> 
-            <select id="story10-1" data-type="infinitive"><option value="c">aumentar</option><option value="w">aumente</option></select>
-            <span>las ventas. Le parece mal que nosotros</span> 
-            <select id="story10-2" data-type="subjunctive"><option value="c">lleguemos</option><option value="w">llegar</option></select>
-            <span>tarde. A mí no me importa</span> 
-            <select id="story10-3" data-type="infinitive"><option value="c">trabajar</option><option value="w">trabaje</option></select>
-            <span>duro, pero me molesta que él no</span> 
-            <select id="story10-4" data-type="subjunctive"><option value="c">agradezca</option><option value="w">agradecer</option></select>
-            <span>nuestro esfuerzo.</span>
-        `
-    },
-    {
-        id: "story11",
-        html: `
-            <span><strong>La Política:</strong><br><br></span>
-            <span>A muchos ciudadanos les parece importante</span> 
-            <select id="story11-1" data-type="infinitive"><option value="c">votar</option><option value="w">voten</option></select>
-            <span>. Les preocupa que los políticos no</span> 
-            <select id="story11-2" data-type="subjunctive"><option value="c">escuchen</option><option value="w">escuchar</option></select>
-            <span>al pueblo. A mí me interesa</span> 
-            <select id="story11-3" data-type="infinitive"><option value="c">leer</option><option value="w">lea</option></select>
-            <span>las noticias, y me sorprende que la gente</span> 
-            <select id="story11-4" data-type="subjunctive"><option value="c">ignore</option><option value="w">ignorar</option></select>
-            <span>los problemas.</span>
-        `
-    },
-    {
-        id: "story12",
-        html: `
-            <span><strong>El Medio Ambiente:</strong><br><br></span>
-            <span>Nos parece urgente</span> 
-            <select id="story12-1" data-type="infinitive"><option value="c">proteger</option><option value="w">protejamos</option></select>
-            <span>la naturaleza. Nos molesta que las empresas</span> 
-            <select id="story12-2" data-type="subjunctive"><option value="c">contaminen</option><option value="w">contaminar</option></select>
-            <span>los ríos. A mí me gusta</span> 
-            <select id="story12-3" data-type="infinitive"><option value="c">reciclar</option><option value="w">recicle</option></select>
-            <span>, y espero que todos</span> 
-            <select id="story12-4" data-type="subjunctive"><option value="c">hagan</option><option value="w">hacer</option></select>
-            <span>lo mismo.</span>
-        `
-    },
-    {
-        id: "story13",
-        html: `
-            <span><strong>Las Redes Sociales:</strong><br><br></span>
-            <span>A los jóvenes les encanta</span> 
-            <select id="story13-1" data-type="infinitive"><option value="c">compartir</option><option value="w">compartan</option></select>
-            <span>fotos. A los padres les preocupa que sus hijos</span> 
-            <select id="story13-2" data-type="subjunctive"><option value="c">pasen</option><option value="w">pasar</option></select>
-            <span>demasiado tiempo online. A mí me parece bien</span> 
-            <select id="story13-3" data-type="infinitive"><option value="c">usar</option><option value="w">use</option></select>
-            <span>Instagram, pero me molesta que la gente</span> 
-            <select id="story13-4" data-type="subjunctive"><option value="c">sea</option><option value="w">ser</option></select>
-            <span>falsa.</span>
-        `
-    },
-    {
-        id: "story14",
-        html: `
-            <span><strong>La Moda:</strong><br><br></span>
-            <span>A mi amiga le importa mucho</span> 
-            <select id="story14-1" data-type="infinitive"><option value="c">vestir</option><option value="w">vista</option></select>
-            <span>bien. Le molesta que yo</span> 
-            <select id="story14-2" data-type="subjunctive"><option value="c">use</option><option value="w">usar</option></select>
-            <span>ropa vieja. A mí me da igual</span> 
-            <select id="story14-3" data-type="infinitive"><option value="c">estar</option><option value="w">esté</option></select>
-            <span>a la moda. Prefiero que mi ropa</span> 
-            <select id="story14-4" data-type="subjunctive"><option value="c">sea</option><option value="w">ser</option></select>
-            <span>cómoda.</span>
-        `
-    },
-    {
-        id: "story15",
-        html: `
-            <span><strong>El Transporte Público:</strong><br><br></span>
-            <span>A la gente le molesta</span> 
-            <select id="story15-1" data-type="infinitive"><option value="c">esperar</option><option value="w">esperen</option></select>
-            <span>el autobús. Les parece mal que el servicio</span> 
-            <select id="story15-2" data-type="subjunctive"><option value="c">sea</option><option value="w">ser</option></select>
-            <span>lento. A mí me conviene</span> 
-            <select id="story15-3" data-type="infinitive"><option value="c">tomar</option><option value="w">tome</option></select>
-            <span>el metro, aunque desearía que</span> 
-            <select id="story15-4" data-type="subjunctive"><option value="c">hubiera</option><option value="w">haber</option></select>
-            <span>menos gente.</span>
-        `
-    },
-    {
-        id: "story16",
-        html: `
-            <span><strong>Aprender Idiomas:</strong><br><br></span>
-            <span>Me interesa</span> 
-            <select id="story16-1" data-type="infinitive"><option value="c">aprender</option><option value="w">aprenda</option></select>
-            <span>francés. A mi profesor le parece bien que yo</span> 
-            <select id="story16-2" data-type="subjunctive"><option value="c">practique</option><option value="w">practicar</option></select>
-            <span>todos los días. A mis amigos les sorprende</span> 
-            <select id="story16-3" data-type="infinitive"><option value="c">oír</option><option value="w">oigan</option></select>
-            <span>mi acento. Les gusta que yo les</span> 
-            <select id="story16-4" data-type="subjunctive"><option value="c">enseñe</option><option value="w">enseñar</option></select>
-            <span>palabras nuevas.</span>
-        `
-    },
-    {
-        id: "story17",
-        html: `
-            <span><strong>Las Vacaciones:</strong><br><br></span>
-            <span>Nos hace ilusión</span> 
-            <select id="story17-1" data-type="infinitive"><option value="c">ir</option><option value="w">vayamos</option></select>
-            <span>a la playa. A mi padre le molesta que</span> 
-            <select id="story17-2" data-type="subjunctive"><option value="c">llueva</option><option value="w">llover</option></select>
-            <span>. A mí no me importa</span> 
-            <select id="story17-3" data-type="infinitive"><option value="c">quedarme</option><option value="w">me quede</option></select>
-            <span>en el hotel, pero prefiero que</span> 
-            <select id="story17-4" data-type="subjunctive"><option value="c">haga</option><option value="w">hacer</option></select>
-            <span>sol.</span>
-        `
-    },
-    {
-        id: "story18",
-        html: `
-            <span><strong>El Cine:</strong><br><br></span>
-            <span>Me encanta</span> 
-            <select id="story18-1" data-type="infinitive"><option value="c">ver</option><option value="w">vea</option></select>
-            <span>películas de terror. A mi novia le da miedo que</span> 
-            <select id="story18-2" data-type="subjunctive"><option value="c">salgan</option><option value="w">salir</option></select>
-            <span>monstruos. A ella le gusta</span> 
-            <select id="story18-3" data-type="infinitive"><option value="c">comer</option><option value="w">coma</option></select>
-            <span>palomitas, y le molesta que yo</span> 
-            <select id="story18-4" data-type="subjunctive"><option value="c">hable</option><option value="w">hablar</option></select>
-            <span>durante la película.</span>
-        `
-    },
-    {
-        id: "story19",
-        html: `
-            <span><strong>El Dinero:</strong><br><br></span>
-            <span>A mis padres les preocupa</span> 
-            <select id="story19-1" data-type="infinitive"><option value="c">gastar</option><option value="w">gasten</option></select>
-            <span>demasiado. Les parece importante que nosotros</span> 
-            <select id="story19-2" data-type="subjunctive"><option value="c">ahorremos</option><option value="w">ahorrar</option></select>
-            <span>. A mí me gustaría</span> 
-            <select id="story19-3" data-type="infinitive"><option value="c">comprar</option><option value="w">compre</option></select>
-            <span>un coche, pero ellos prefieren que yo</span> 
-            <select id="story19-4" data-type="subjunctive"><option value="c">espere</option><option value="w">esperar</option></select>
-            <span>un poco más.</span>
-        `
-    },
-    {
-        id: "story20",
-        html: `
-            <span><strong>La Lectura:</strong><br><br></span>
-            <span>Me parece fundamental</span> 
-            <select id="story20-1" data-type="infinitive"><option value="c">leer</option><option value="w">lea</option></select>
-            <span>libros. Me preocupa que los niños no</span> 
-            <select id="story20-2" data-type="subjunctive"><option value="c">lean</option><option value="w">leer</option></select>
-            <span>suficiente. A los profesores les interesa</span> 
-            <select id="story20-3" data-type="infinitive"><option value="c">fomentar</option><option value="w">fomenten</option></select>
-            <span>la lectura, y esperan que los padres</span> 
-            <select id="story20-4" data-type="subjunctive"><option value="c">ayuden</option><option value="w">ayudar</option></select>
-            <span>en casa.</span>
-        `
-    }
+// 24 Drag Items
+const dragBank = [
+    {w: "Hablado", t: "regular"}, {w: "Comido", t: "regular"}, {w: "Vivido", t: "regular"}, {w: "Bailado", t: "regular"},
+    {w: "Estudiado", t: "regular"}, {w: "Corrido", t: "regular"}, {w: "Dormido", t: "regular"}, {w: "Jugado", t: "regular"},
+    {w: "Cantado", t: "regular"}, {w: "Bebido", t: "regular"}, {w: "Salido", t: "regular"}, {w: "Viajado", t: "regular"},
+    {w: "Hecho", t: "irregular"}, {w: "Roto", t: "irregular"}, {w: "Visto", t: "irregular"}, {w: "Escrito", t: "irregular"},
+    {w: "Muerto", t: "irregular"}, {w: "Abierto", t: "irregular"}, {w: "Puesto", t: "irregular"}, {w: "Dicho", t: "irregular"},
+    {w: "Vuelto", t: "irregular"}, {w: "Cubierto", t: "irregular"}, {w: "Devuelto", t: "irregular"}, {w: "Descubierto", t: "irregular"}
 ];
 
-const dragDropBank = [
-    { id: 1, text: "Me parece bien <strong>comer</strong>.", type: "infinitive", exp: "Opinion, Same Subject 👤=👤" },
-    { id: 2, text: "Me parece bien que <strong>comas</strong>.", type: "subjunctive", exp: "Opinion, Diff Subject 👤≠👥" },
-    { id: 3, text: "Nos molesta <strong>esperar</strong>.", type: "infinitive", exp: "Feeling, Same Subject 👤=👤" },
-    { id: 4, text: "Nos molesta que <strong>esperen</strong>.", type: "subjunctive", exp: "Feeling, Diff Subject 👤≠👥" },
-    { id: 5, text: "Le hace ilusión <strong>ir</strong>.", type: "infinitive", exp: "Feeling, Same Subject 👤=👤" },
-    { id: 6, text: "Le hace ilusión que <strong>vayas</strong>.", type: "subjunctive", exp: "Feeling, Diff Subject 👤≠👥" },
-    { id: 7, text: "Te sorprende <strong>ganar</strong>.", type: "infinitive", exp: "Feeling, Same Subject 👤=👤" },
-    { id: 8, text: "Te sorprende que <strong>ganen</strong>.", type: "subjunctive", exp: "Feeling, Diff Subject 👤≠👥" },
-    { id: 9, text: "Me interesa <strong>leer</strong>.", type: "infinitive", exp: "Opinion, Same Subject 👤=👤" },
-    { id: 10, text: "Me interesa que <strong>leas</strong>.", type: "subjunctive", exp: "Opinion, Diff Subject 👤≠👥" },
-    { id: 11, text: "Les importa <strong>ganar</strong>.", type: "infinitive", exp: "Opinion, Same Subject 👤=👤" },
-    { id: 12, text: "Les importa que <strong>ganemos</strong>.", type: "subjunctive", exp: "Opinion, Diff Subject 👤≠👥" },
-    { id: 13, text: "Nos parece mal <strong>gritar</strong>.", type: "infinitive", exp: "Opinion, Same Subject 👤=👤" },
-    { id: 14, text: "Nos parece mal que <strong>griten</strong>.", type: "subjunctive", exp: "Opinion, Diff Subject 👤≠👥" },
-    { id: 15, text: "Me encanta <strong>bailar</strong>.", type: "infinitive", exp: "Feeling, Same Subject 👤=👤" },
-    { id: 16, text: "Me encanta que <strong>bailes</strong>.", type: "subjunctive", exp: "Feeling, Diff Subject 👤≠👥" },
-    { id: 17, text: "Te cae mal <strong>perder</strong>.", type: "infinitive", exp: "Feeling, Same Subject 👤=👤" },
-    { id: 18, text: "Te cae mal que <strong>pierda</strong>.", type: "subjunctive", exp: "Feeling, Diff Subject 👤≠👥" },
-    { id: 19, text: "Le molesta <strong>fumar</strong>.", type: "infinitive", exp: "Feeling, Same Subject 👤=👤" },
-    { id: 20, text: "Le molesta que <strong>fumen</strong>.", type: "subjunctive", exp: "Feeling, Diff Subject 👤≠👥" },
-    { id: 21, text: "Nos sorprende <strong>verte</strong>.", type: "infinitive", exp: "Feeling, Same Subject 👤=👤" },
-    { id: 22, text: "Nos sorprende que <strong>vengas</strong>.", type: "subjunctive", exp: "Feeling, Diff Subject 👤≠👥" },
-    { id: 23, text: "Les parece raro <strong>salir</strong>.", type: "infinitive", exp: "Opinion, Same Subject 👤=👤" },
-    { id: 24, text: "Les parece raro que <strong>salgas</strong>.", type: "subjunctive", exp: "Opinion, Diff Subject 👤≠👥" }
+const flashcards = [
+    {en:"I have spoken", es:"Yo he hablado", expl: "Haber (Yo) + Regular AR (-ado)"},
+    {en:"You have eaten", es:"Tú has comido", expl: "Haber (Tú) + Regular ER (-ido)"},
+    {en:"She has lived", es:"Ella ha vivido", expl: "Haber (Ella) + Regular IR (-ido)"},
+    {en:"We have done (Irreg)", es:"Nosotros hemos hecho", expl: "Irregular: Hacer -> Hecho"},
+    {en:"They have seen (Irreg)", es:"Ellos han visto", expl: "Irregular: Ver -> Visto"},
+    {en:"I have written (Irreg)", es:"Yo he escrito", expl: "Irregular: Escribir -> Escrito"},
+    {en:"You have broken (Irreg)", es:"Tú has roto", expl: "Irregular: Romper -> Roto"},
+    {en:"He has put (Irreg)", es:"Él ha puesto", expl: "Irregular: Poner -> Puesto"},
+    {en:"We have said (Irreg)", es:"Hemos dicho", expl: "Irregular: Decir -> Dicho"},
+    {en:"They have returned (Irreg)", es:"Han vuelto", expl: "Irregular: Volver -> Vuelto"},
+    {en:"I have opened (Irreg)", es:"He abierto", expl: "Irregular: Abrir -> Abierto"},
+    {en:"You have died (Irreg)", es:"Has muerto", expl: "Irregular: Morir -> Muerto"}
 ];
 
 // --- LOGIC ---
 
 document.addEventListener('DOMContentLoaded', () => {
-    let currentStoryData = {};
-
-    // 1. TABS
+    // Init Tabs
     window.changeMainTab = function(evt, tabId) {
         document.querySelectorAll('.main-tab-content').forEach(el => el.classList.remove('is-active'));
         document.querySelectorAll('.main-tab-link').forEach(el => el.classList.remove('active'));
         document.getElementById(tabId).classList.add('is-active');
         evt.currentTarget.classList.add('active');
         
-        if (tabId === 'tab-practica' && !document.getElementById('quiz-container').hasChildNodes()) {
-            generateQuiz(); generateStory(); generateDragDrop();
+        // Lazy load practice
+        if (tabId === 'tab-practice' && !document.getElementById('quiz-container').hasChildNodes()) {
+            generateQuiz(); generateDragDrop();
         }
     }
 
-    // 2. VISUALIZER
-    window.toggleFormula = function() {
-        const toggle = document.getElementById('que-toggle');
-        const quePart = document.getElementById('formula-que');
-        const resultPart = document.getElementById('formula-result');
-
-        if (toggle.checked) {
-            quePart.style.display = 'inline-block';
-            resultPart.innerHTML = '<strong>participes</strong>.';
-            resultPart.className = 'formula-part subjunctive';
-        } else {
-            quePart.style.display = 'none';
-            resultPart.innerHTML = '<strong>participar</strong>.';
-            resultPart.className = 'formula-part infinitive';
-        }
-    }
-
-    // 3. QUIZ
-    document.getElementById('generate-quiz').addEventListener('click', generateQuiz);
-
-    function generateQuiz() {
-        const container = document.getElementById('quiz-container');
-        container.innerHTML = '';
-        const selectedQuestions = [...quizBank].sort(() => 0.5 - Math.random()).slice(0, 5);
-        
-        selectedQuestions.forEach((q, i) => {
-            const qId = `q_${i}`;
-            const tts = `<span class="tts-icon" data-tts="${q.question.replace(/\(.*\)/, '...')}">🔊</span>`;
-            
-            let html = `<div class="quiz-question" id="${qId}">
-                <p>${i+1}. ${q.question} ${tts}</p>`;
-            
-            q.options.forEach((opt, idx) => {
-                html += `<button onclick="checkQuiz('${qId}', ${idx === q.correct})">${opt}</button>`;
-            });
-            
-            html += `<span class="feedback"></span>
-                     <div class="explanation-text" style="display:none;">${q.explanation}</div>
-                     </div>`;
-            container.innerHTML += html;
-        });
-    }
-
-    window.checkQuiz = function(qId, isCorrect) {
-        const el = document.getElementById(qId);
-        const fb = el.querySelector('.feedback');
-        const exp = el.querySelector('.explanation-text');
-        exp.style.display = 'block';
-        if(isCorrect) {
-            fb.textContent = "Correct! 👍"; fb.className = "feedback correct";
-        } else {
-            fb.textContent = "Try again. 😕"; fb.className = "feedback incorrect";
-        }
-    }
-
-    // 4. STORY
-    document.getElementById('generate-story').addEventListener('click', generateStory);
-    document.getElementById('check-story-btn').addEventListener('click', checkStory);
-
-    function generateStory() {
-        currentStoryData = storyBank[Math.floor(Math.random() * storyBank.length)];
-        document.getElementById('story-container').innerHTML = currentStoryData.html;
-        document.querySelectorAll('.story-explanation').forEach(e=>e.remove());
-    }
-
-    function checkStory() {
-        const container = document.getElementById('story-container');
-        container.querySelectorAll('.story-explanation').forEach(e=>e.remove());
-        
-        const selects = container.querySelectorAll('select');
-        selects.forEach(sel => {
-            const val = sel.value;
-            const type = sel.dataset.type;
-            const isCorrect = val === 'c';
-            
-            sel.style.borderColor = isCorrect ? "var(--green)" : "var(--red)";
-            
-            const exp = document.createElement('span');
-            exp.className = 'story-explanation';
-            exp.textContent = isCorrect ? "✅" : `❌ (Need ${type})`;
-            sel.parentNode.insertBefore(exp, sel.nextSibling);
-        });
-    }
-
-    // 5. DRAG & DROP
-    const dragPool = document.getElementById('drag-items-pool');
-    document.getElementById('generate-drag').addEventListener('click', generateDragDrop);
-    document.getElementById('check-drag-btn').addEventListener('click', checkDrag);
-    
-    let currentDragItems = [];
-
-    function generateDragDrop() {
-        dragPool.innerHTML = '';
-        document.getElementById('drag-feedback').textContent = '';
-        document.querySelectorAll('.dropzone .draggable').forEach(e => e.remove());
-        document.querySelectorAll('.drag-explanation').forEach(e => e.remove());
-
-        currentDragItems = [...dragDropBank].sort(() => 0.5 - Math.random()).slice(0, 8);
-        
-        currentDragItems.forEach(item => {
-            const el = document.createElement('div');
-            el.className = 'draggable';
-            el.draggable = true;
-            // Audio Icon
-            const ttsHtml = `&nbsp;<span class="tts-icon" data-tts="${item.text.replace(/<[^>]*>?/gm, '')}">🔊</span>`;
-            el.innerHTML = `${item.text} ${ttsHtml}`;
-            el.dataset.type = item.type;
-            el.dataset.exp = item.exp;
-            
-            el.addEventListener('dragstart', e => e.target.classList.add('dragging'));
-            el.addEventListener('dragend', e => e.target.classList.remove('dragging'));
-            el.addEventListener('touchstart', touchStart, {passive: false});
-            
-            dragPool.appendChild(el);
-        });
-        
-        setupDropzones();
-    }
-
-    function setupDropzones() {
-        document.querySelectorAll('.dropzone').forEach(zone => {
-            zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
-            zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
-            zone.addEventListener('drop', e => {
-                e.preventDefault();
-                zone.classList.remove('drag-over');
-                const dragging = document.querySelector('.dragging');
-                if(dragging) zone.appendChild(dragging);
-            });
-        });
-    }
-
-    // Touch Logic
-    let tDrag = null;
-    function touchStart(e) {
-        if(e.target.classList.contains('tts-icon')) return;
-        tDrag = e.target.closest('.draggable');
-        if(!tDrag) return;
-        // e.preventDefault(); 
-        setTimeout(() => tDrag.classList.add('dragging'), 100);
-        document.addEventListener('touchmove', touchMove, {passive: false});
-        document.addEventListener('touchend', touchEnd);
-    }
-    function touchMove(e) {
-        if(!tDrag || !tDrag.classList.contains('dragging')) return;
-        e.preventDefault();
-        const t = e.touches[0];
-        tDrag.style.position = 'fixed';
-        tDrag.style.zIndex = 1000;
-        tDrag.style.left = (t.clientX - tDrag.offsetWidth/2) + 'px';
-        tDrag.style.top = (t.clientY - tDrag.offsetHeight/2) + 'px';
-    }
-    function touchEnd(e) {
-        if(!tDrag) return;
-        const t = e.changedTouches[0];
-        tDrag.style.position = ''; tDrag.style.zIndex = ''; tDrag.style.left = ''; tDrag.style.top = '';
-        tDrag.classList.remove('dragging');
-        
-        const elem = document.elementFromPoint(t.clientX, t.clientY);
-        const zone = elem ? elem.closest('.dropzone') : null;
-        if(zone) zone.appendChild(tDrag);
-        
-        document.removeEventListener('touchmove', touchMove);
-        document.removeEventListener('touchend', touchEnd);
-        tDrag = null;
-    }
-
-    function checkDrag() {
-        let correct = 0;
-        const zones = {
-            'zone-infinitive': 'infinitive',
-            'zone-subjunctive': 'subjunctive'
-        };
-        
-        for (const [zoneId, type] of Object.entries(zones)) {
-            const zone = document.getElementById(zoneId);
-            zone.querySelectorAll('.draggable').forEach(item => {
-                if(item.dataset.type === type) {
-                    item.style.backgroundColor = '#d4edda'; correct++;
-                } else {
-                    item.style.backgroundColor = '#f8d7da';
-                }
-                if(!item.querySelector('.drag-explanation')) {
-                    const ex = document.createElement('div');
-                    ex.className = 'drag-explanation';
-                    ex.textContent = item.dataset.exp;
-                    item.appendChild(ex);
-                }
-            });
-        }
-        document.getElementById('drag-feedback').textContent = `Correct: ${correct}`;
-    }
-
-    // 6. FLASHCARDS
-    let cIdx = 0;
-    function loadCard() {
-        const d = flashcardData[cIdx];
-        const tts = `&nbsp;<span class="tts-icon" data-tts="${d.es.replace(/<[^>]*>?/gm, '')}">🔊</span>`;
-        document.getElementById('card-front').innerHTML = d.en;
-        document.getElementById('card-back').innerHTML = `${d.es} ${tts}<br><br><small>${d.explanation}</small>`;
-        document.getElementById('flashcard').classList.remove('is-flipped');
-    }
-    window.flipCard = () => document.getElementById('flashcard').classList.toggle('is-flipped');
-    window.nextCard = () => { cIdx = (cIdx+1)%flashcardData.length; loadCard(); };
-    window.prevCard = () => { cIdx = (cIdx-1+flashcardData.length)%flashcardData.length; loadCard(); };
-    
-    document.getElementById('flashcard').addEventListener('click', function(e) {
-        if(e.target.classList.contains('tts-icon')) {
-            e.stopPropagation();
-            speak(e.target.dataset.tts);
-        } else {
-            flipCard();
-        }
+    // Init Acronyms
+    const acBox = document.getElementById('acronyms');
+    irregulars.forEach(i => {
+        acBox.innerHTML += `
+            <div class="acronym-card" onclick="this.classList.toggle('flipped'); speak('${i.w}... ${i.p}')">
+                <div class="acronym-inner">
+                    <div class="acronym-front">${i.l}</div>
+                    <div class="acronym-back">${i.w}<br>⬇️<br><strong>${i.p}</strong></div>
+                </div>
+            </div>`;
     });
 
-    // Utils - Audio Premium V2
-    function speak(txt) {
-        window.speechSynthesis.cancel();
-        const u = new SpeechSynthesisUtterance(txt);
-        u.lang = 'es-ES';
-        
-        const voices = window.speechSynthesis.getVoices();
-        // Prefer premium voices
-        const v = voices.find(voice => voice.name.includes('Google') && voice.lang.includes('es')) || 
-                  voices.find(voice => voice.name.includes('Monica') && voice.lang.includes('es')) ||
-                  voices.find(voice => voice.lang.includes('es'));
-        
-        if(v) u.voice = v;
-        window.speechSynthesis.speak(u);
-    }
-    
-    document.body.addEventListener('click', function(e) {
-        if(e.target.classList.contains('tts-icon') && !e.target.closest('#flashcard')) {
-            speak(e.target.dataset.tts);
-        }
-    });
-    
-    document.getElementById('theme-toggle').onclick = () => document.body.classList.toggle('dark-mode');
-
-    // Init
+    // Init Flashcards
     loadCard();
 });
+
+// 1. QUIZ LOGIC
+function generateQuiz() {
+    const container = document.getElementById('quiz-container');
+    container.innerHTML = '';
+    const qs = [...quizBank].sort(()=>0.5-Math.random()).slice(0,5); // 5 Random questions
+    
+    qs.forEach((q, idx) => {
+        // CORRECCION: Limpiar paréntesis para el audio
+        const audioText = q.q.replace(/[()]/g, "");
+        container.innerHTML += `
+            <div class="quiz-question">
+                <p>${idx+1}. ${q.q} <span class="tts-icon" onclick="speak('${audioText}')">🔊</span></p>
+                <input type="text" id="inp-${idx}" placeholder="Ex: he comido">
+                <button onclick="checkQ(${idx}, '${q.a}')">Check</button>
+                <span id="fb-${idx}" class="feedback"></span>
+            </div>`;
+    });
+}
+
+window.checkQ = function(idx, ans) {
+    const inp = document.getElementById(`inp-${idx}`);
+    const fb = document.getElementById(`fb-${idx}`);
+    if(inp.value.toLowerCase().trim() === ans.toLowerCase()) {
+        fb.textContent = "Correct! ✅"; fb.className = "feedback correct";
+    } else {
+        fb.textContent = `Incorrect. It is: ${ans} ❌`; fb.className = "feedback incorrect";
+    }
+}
+
+// 2. DRAG & DROP LOGIC
+const dragPool = document.getElementById('drag-pool');
+let currentDragItems = [];
+
+function generateDragDrop() {
+    dragPool.innerHTML = '';
+    document.getElementById('drag-feedback').textContent = '';
+    document.querySelectorAll('.dropzone .draggable').forEach(e=>e.remove());
+    
+    currentDragItems = [...dragBank].sort(()=>0.5-Math.random()).slice(0,8); // 8 Random items
+    
+    currentDragItems.forEach(i => {
+        const el = document.createElement('div');
+        el.className = 'draggable'; el.draggable = true;
+        el.innerHTML = `${i.w} <span class="tts-icon" onclick="event.stopPropagation(); speak('${i.w}')">🔊</span>`;
+        el.dataset.type = i.t; // regular or irregular
+        
+        el.addEventListener('dragstart', e => { e.dataTransfer.setData('text', i.t); e.target.classList.add('dragging'); });
+        el.addEventListener('dragend', e => e.target.classList.remove('dragging'));
+        el.addEventListener('touchstart', touchStart, {passive: false});
+        
+        dragPool.appendChild(el);
+    });
+    
+    setupDropzones();
+}
+
+function setupDropzones() {
+    document.querySelectorAll('.dropzone').forEach(z => {
+        z.addEventListener('dragover', e => e.preventDefault());
+        z.addEventListener('drop', e => {
+            e.preventDefault();
+            const dragging = document.querySelector('.dragging');
+            if(dragging) z.appendChild(dragging);
+        });
+    });
+}
+
+window.checkDrag = function() {
+    let correct = 0;
+    const regZone = document.getElementById('zone-regular');
+    const irregZone = document.getElementById('zone-irregular');
+    
+    const checkZone = (zone, type) => {
+        zone.querySelectorAll('.draggable').forEach(d => {
+            if(d.dataset.type === type) {
+                d.style.background = "#d4edda"; correct++;
+            } else {
+                d.style.background = "#f8d7da";
+            }
+        });
+    };
+    
+    checkZone(regZone, 'regular');
+    checkZone(irregZone, 'irregular');
+    
+    const total = regZone.querySelectorAll('.draggable').length + irregZone.querySelectorAll('.draggable').length;
+    document.getElementById('drag-feedback').textContent = total > 0 ? `Score: ${correct} / ${total}` : "Drag items first!";
+}
+
+// Touch Logic (iPad)
+let tDrag = null;
+function touchStart(e) {
+    if(e.target.classList.contains('tts-icon')) return;
+    tDrag = e.target.closest('.draggable');
+    if(!tDrag) return;
+    // e.preventDefault(); 
+    setTimeout(() => tDrag.classList.add('dragging'), 100);
+    document.addEventListener('touchmove', touchMove, {passive:false});
+    document.addEventListener('touchend', touchEnd);
+}
+function touchMove(e) {
+    if(!tDrag) return;
+    e.preventDefault();
+    const t = e.touches[0];
+    tDrag.style.position = 'fixed'; tDrag.style.zIndex = 1000;
+    tDrag.style.left = (t.clientX - tDrag.offsetWidth/2) + 'px';
+    tDrag.style.top = (t.clientY - tDrag.offsetHeight/2) + 'px';
+}
+function touchEnd(e) {
+    if(!tDrag) return;
+    const t = e.changedTouches[0];
+    tDrag.style.position = ''; tDrag.style.zIndex = ''; tDrag.style.left = ''; tDrag.style.top = '';
+    tDrag.classList.remove('dragging');
+    
+    const elem = document.elementFromPoint(t.clientX, t.clientY);
+    const zone = elem ? elem.closest('.dropzone') : null;
+    if(zone) zone.appendChild(tDrag);
+    
+    document.removeEventListener('touchmove', touchMove);
+    document.removeEventListener('touchend', touchEnd);
+    tDrag = null;
+}
+
+// 3. FLASHCARDS LOGIC
+let cIdx = 0;
+function loadCard() {
+    const d = flashcards[cIdx];
+    // Clean audio text
+    const audioText = d.es.replace(/<[^>]*>?/gm, '');
+    const tts = `&nbsp;<span class="tts-icon" data-tts="${audioText}">🔊</span>`;
+    document.getElementById('fc-front').innerHTML = d.en;
+    document.getElementById('fc-back').innerHTML = `${d.es}${tts}<br><br><small style="color:var(--dark-blue)">${d.expl}</small>`;
+    document.getElementById('flashcard').classList.remove('is-flipped');
+}
+window.flipCard = () => document.getElementById('flashcard').classList.toggle('is-flipped');
+window.nextCard = () => { cIdx=(cIdx+1)%flashcards.length; loadCard(); };
+window.prevCard = () => { cIdx=(cIdx-1+flashcards.length)%flashcards.length; loadCard(); };
+
+// Audio Click Handler
+document.body.addEventListener('click', function(e) {
+    if(e.target.classList.contains('tts-icon')) {
+        e.stopPropagation(); // Stop flip
+        speak(e.target.dataset.tts);
+    } else if(e.target.closest('#flashcard')) {
+        flipCard();
+    }
+});
+
+// UI Functions
+window.toggleLang = function() {
+    currentLang = currentLang === 'en' ? 'es' : 'en';
+    document.querySelectorAll('[data-lang-key]').forEach(el => {
+        const key = el.dataset.langKey;
+        if(uiData[currentLang][key]) el.innerHTML = uiData[currentLang][key];
+    });
+}
+
+window.toggleTheme = () => document.body.classList.toggle('dark-mode');
+
+// AUDIO ENGINE (PREMIUM VOICE SEEKER)
+function speak(txt) {
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(txt);
+    u.lang = 'es-ES';
+    
+    // Smart Voice Selection Strategy
+    const voices = window.speechSynthesis.getVoices();
+    let v = voices.find(voice => voice.name.includes('Google') && voice.lang.includes('es')); // Chrome
+    if (!v) v = voices.find(voice => (voice.name.includes('Monica') || voice.name.includes('Paulina')) && voice.lang.includes('es')); // Windows/Mac
+    if (!v) v = voices.find(voice => voice.lang.includes('es')); // Fallback
+    
+    if(v) u.voice = v;
+    window.speechSynthesis.speak(u);
+}
+
+// Init
+window.speechSynthesis.onvoiceschanged = () => {}; // Force load voices
+loadCard();
 </script>
 </body>
 </html>
